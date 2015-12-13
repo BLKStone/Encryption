@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Created-By: 1.6.0_20 (Sun Microsystems Inc.)
+Main-Class: cn.com.sgcc.ui.Main
+Class-Path: . ../lib/commons-logging-1.0.4.jar ../lib/log4j-1.2.16.jar ../lib/mysql-connector-java-5.1.18-bin.jar ../lib/sgcc-common.jar ../lib/spring.jar
+

@@ -1,0 +1,48 @@
+[2015-05-26 10:29:40,357] [INFO] - 加密客户端启动成功
+[2015-05-26 10:30:30,762] [INFO] - admin登录成功！
+[2015-05-26 10:35:20,376] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop
+  ------  TO: C:\Users\zhanghao\Documents\新建文件夹 (2)
+[2015-05-26 10:36:40,370] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\Lect12-GM-2.pdf
+[2015-05-26 10:36:40,479] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\WePS2_Clustering.pdf
+[2015-05-26 10:36:40,620] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\吉他\ＣＬＡＳＳ１１.pdf
+[2015-05-26 10:36:40,670] [INFO] - [old-encrypt] C:\Users\zhanghao\Desktop\学习\linux内核分析与驱动编程\lecture 01_1502.pdf
+[2015-05-26 10:36:46,003] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\书\[大家网]Python基础教程(第2版)[www.TopSage.com].pdf
+[2015-05-26 10:36:48,036] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\书\从0到1 正文.pdf
+[2015-05-26 10:36:52,407] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\书\机器学习导论.pdf
+[2015-05-26 10:36:52,423] [INFO] - [old-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\Ch1 导论.pdf
+[2015-05-26 10:36:52,782] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\Ch2 智能体.pdf
+[2015-05-26 10:36:54,716] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\Ch3 基于搜索的问题求解.pdf
+[2015-05-26 10:36:55,028] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\Ch4 超越经典的搜索.pdf
+[2015-05-26 10:36:55,356] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\Ch5 对抗搜索.pdf
+[2015-05-26 10:36:56,402] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\Ch6 约束满足问题.pdf
+[2015-05-26 10:36:56,511] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\作业1.pdf
+[2015-05-26 10:36:56,636] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\作业2.pdf
+[2015-05-26 10:36:56,745] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\人工智能\实验一.pdf
+[2015-05-26 10:38:51,350] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\作业\weather02.pdf
+[2015-05-26 10:38:51,866] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\作业\weather03.pdf
+[2015-05-26 10:38:52,006] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\作业\weather04_V1.1.pdf
+[2015-05-26 10:38:52,287] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\作业\weather05_V1.1.pdf
+[2015-05-26 10:38:52,771] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec00_intro.pdf
+[2015-05-26 10:38:53,413] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec01_android.pdf
+[2015-05-26 10:38:53,928] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec01_cocos2d.pdf
+[2015-05-26 10:38:54,241] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec02_activity.pdf
+[2015-05-26 10:38:54,565] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec02_layout.pdf
+[2015-05-26 10:38:54,830] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec02_screen.pdf
+[2015-05-26 10:38:55,315] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec02_view.pdf
+[2015-05-26 10:38:55,789] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec03_http.pdf
+[2015-05-26 10:38:56,102] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec03_JSON.pdf
+[2015-05-26 10:38:56,211] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec03_sharedpreferences.pdf
+[2015-05-26 10:38:56,399] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec03_thread.pdf
+[2015-05-26 10:38:56,649] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec03_xml.pdf
+[2015-05-26 10:38:56,774] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec04_Application.pdf
+[2015-05-26 10:38:56,921] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec04_Intent.pdf
+[2015-05-26 10:38:57,546] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec04_ListView.pdf
+[2015-05-26 10:38:57,765] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec04_SQLite.pdf
+[2015-05-26 10:38:58,180] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec05_intent.pdf
+[2015-05-26 10:38:58,336] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec05_nine_patch.pdf
+[2015-05-26 10:38:58,430] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec05_TextWatcher.pdf
+[2015-05-26 10:38:58,649] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec05_ui.pdf
+[2015-05-26 10:38:58,758] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\学习\安卓\课件\lec09_Broadcast.pdf
+[2015-05-26 21:29:07,290] [INFO] - 加密客户端启动成功
+[2015-05-26 21:29:20,572] [INFO] - admin登录成功！

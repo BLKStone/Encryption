@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="AcService"
+  id="myeclipse.1414733559324"
+  context-root="/AcService"
+  j2ee-spec="5.0"
+  archive="AcService.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

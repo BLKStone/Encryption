@@ -1,0 +1,80 @@
+[2015-05-09 09:57:10,356] [INFO] - 加密客户端启动成功
+[2015-05-09 09:57:31,355] [INFO] - admin登录成功！
+[2015-05-09 09:57:48,282] [INFO] - 加密客户端启动成功
+[2015-05-09 12:32:21,228] [INFO] - 加密客户端启动成功
+[2015-05-09 12:32:37,786] [INFO] - admin登录成功！
+[2015-05-09 12:38:01,646] [ERROR] -  not exists
+[2015-05-09 12:48:42,344] [INFO] - 加密客户端启动成功
+[2015-05-09 12:48:55,734] [INFO] - admin登录成功！
+[2015-05-09 14:57:47,804] [INFO] - 加密客户端启动成功
+[2015-05-09 14:58:05,651] [INFO] - admin登录成功！
+[2015-05-09 15:05:17,091] [INFO] - 加密客户端启动成功
+[2015-05-09 15:05:30,437] [INFO] - admin登录成功！
+[2015-05-09 15:07:54,679] [ERROR] -  not exists
+[2015-05-09 15:08:49,137] [ERROR] - C:\Users\zhanghao\Desktop\ideas.docx is not a directory
+[2015-05-09 15:09:14,864] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:14,902] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:09:21,082] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:21,084] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:09:26,705] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:26,708] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:09:29,175] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:29,177] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:09:30,897] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:30,899] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:09:32,421] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:32,423] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:09:33,877] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:33,879] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:09:35,926] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:35,928] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:09:37,943] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:09:37,945] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:16:02,519] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:16:02,521] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:16:25,346] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:16:25,348] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:19:25,737] [INFO] - 加密客户端启动成功
+[2015-05-09 15:19:33,785] [INFO] - admin登录成功！
+[2015-05-09 15:20:05,834] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:20:05,859] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:24:06,148] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:24:06,151] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:31:30,691] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:31:30,716] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:31:32,982] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:31:33,006] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
+[2015-05-09 15:31:34,961] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop
+[2015-05-09 15:31:34,986] [INFO] - [batch encrypt result] all[0] fail[0] new-encrypt[0] old-encrypt[0] re-encrypt[0]
