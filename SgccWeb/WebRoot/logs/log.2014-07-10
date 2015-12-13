@@ -1,0 +1,107 @@
+[2014-07-10 16:16:29,598] [INFO] - 加密客户端启动成功
+[2014-07-10 16:16:39,371] [INFO] - admin登录成功！
+[2014-07-10 16:17:54,291] [ERROR] - c:\test\1.pdf is not a directory
+[2014-07-10 16:18:01,016] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 16:19:31,915] [INFO] - 加密客户端启动成功
+[2014-07-10 16:20:06,064] [INFO] - 加密客户端启动成功
+[2014-07-10 16:20:17,306] [INFO] - admin登录成功！
+[2014-07-10 16:28:07,626] [INFO] - 加密客户端启动成功
+[2014-07-10 16:28:14,746] [INFO] - admin登录成功！
+[2014-07-10 16:28:21,291] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 16:28:58,772] [INFO] - 加密客户端启动成功
+[2014-07-10 16:29:05,445] [INFO] - admin登录成功！
+[2014-07-10 16:29:12,056] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 16:29:57,388] [INFO] - 加密客户端启动成功
+[2014-07-10 16:30:03,161] [INFO] - admin登录成功！
+[2014-07-10 16:30:11,404] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 16:33:13,257] [INFO] - 加密客户端启动成功
+[2014-07-10 16:33:18,848] [INFO] - admin登录成功！
+[2014-07-10 16:33:24,806] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 16:34:05,317] [INFO] - 加密客户端启动成功
+[2014-07-10 16:34:10,635] [INFO] - admin登录成功！
+[2014-07-10 16:34:17,018] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 16:34:17,609] [INFO] - [new-encrypt] c:\test\1.pdf
+[2014-07-10 16:34:17,609] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[1] old-encrypt[0] re-encrypt[0]
+[2014-07-10 17:11:27,867] [INFO] - 加密客户端启动成功
+[2014-07-10 21:52:28,770] [INFO] - 加密客户端启动成功
+[2014-07-10 21:52:37,602] [INFO] - admin登录成功！
+[2014-07-10 21:52:46,143] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 21:52:46,212] [INFO] - [old-encrypt] c:\test\1.pdf
+[2014-07-10 21:52:46,213] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]
+[2014-07-10 21:53:29,299] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 21:53:29,319] [INFO] - [old-encrypt] c:\test\1.pdf
+[2014-07-10 21:53:29,320] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]
+[2014-07-10 21:53:59,511] [INFO] - 加密客户端启动成功
+[2014-07-10 21:54:05,327] [INFO] - admin登录成功！
+[2014-07-10 21:54:16,729] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 21:54:17,253] [INFO] - [new-encrypt] c:\test\1.pdf
+[2014-07-10 21:54:17,254] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[1] old-encrypt[0] re-encrypt[0]
+[2014-07-10 22:27:09,412] [INFO] - 加密客户端启动成功
+[2014-07-10 22:27:16,229] [INFO] - admin登录成功！
+[2014-07-10 22:27:21,833] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:28:01,025] [INFO] - 加密客户端启动成功
+[2014-07-10 22:28:06,125] [INFO] - admin登录成功！
+[2014-07-10 22:28:12,108] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:28:12,609] [INFO] - [new-encrypt] c:\test\1.pdf
+[2014-07-10 22:28:12,610] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[1] old-encrypt[0] re-encrypt[0]
+[2014-07-10 22:28:16,137] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:28:58,200] [INFO] - 加密客户端启动成功
+[2014-07-10 22:29:03,920] [INFO] - admin登录成功！
+[2014-07-10 22:29:10,742] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:31:30,157] [INFO] - 加密客户端启动成功
+[2014-07-10 22:31:35,039] [INFO] - admin登录成功！
+[2014-07-10 22:31:40,526] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:32:06,541] [INFO] - 加密客户端启动成功
+[2014-07-10 22:32:11,592] [INFO] - admin登录成功！
+[2014-07-10 22:32:16,589] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:32:17,089] [INFO] - [new-encrypt] c:\test\1.pdf
+[2014-07-10 22:32:17,093] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[1] old-encrypt[0] re-encrypt[0]
+[2014-07-10 22:32:19,530] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:32:19,567] [INFO] - [old-encrypt] c:\test\1.pdf
+[2014-07-10 22:32:19,567] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]
+[2014-07-10 22:32:30,876] [INFO] - 加密客户端启动成功
+[2014-07-10 22:32:36,026] [INFO] - admin登录成功！
+[2014-07-10 22:32:41,478] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:32:41,509] [INFO] - [old-encrypt] c:\test\1.pdf
+[2014-07-10 22:32:41,510] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]
+[2014-07-10 22:33:42,368] [INFO] - 加密客户端启动成功
+[2014-07-10 22:33:48,128] [INFO] - admin登录成功！
+[2014-07-10 22:33:54,093] [INFO] - [batch encrypt request]
+  ------FROM: c:\test
+  ------  TO: c:\test
+[2014-07-10 22:33:54,130] [INFO] - [old-encrypt] c:\test\1.pdf
+[2014-07-10 22:33:54,131] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]

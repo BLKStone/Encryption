@@ -1,0 +1,274 @@
+[2014-10-31 13:28:01,678] [INFO] - 加密客户端启动成功
+[2014-10-31 13:28:07,492] [INFO] - admin登录成功！
+[2014-10-31 15:57:50,730] [INFO] - 加密客户端启动成功
+[2014-10-31 15:57:59,609] [INFO] - admin登录成功！
+[2014-10-31 15:58:15,566] [INFO] - [batch encrypt request]
+  ------FROM: C:\test\src
+  ------  TO: C:\test\en
+[2014-10-31 15:58:16,600] [INFO] - [new-encrypt] C:\test\src\Q_GDW_101-2003.pdf
+[2014-10-31 15:58:16,758] [INFO] - [new-encrypt] C:\test\src\Q_GDW_102-2003.pdf
+[2014-10-31 15:58:16,904] [INFO] - [new-encrypt] C:\test\src\Q_GDW_103-2003.pdf
+[2014-10-31 15:58:17,024] [INFO] - [new-encrypt] C:\test\src\Q_GDW_104-2003.pdf
+[2014-10-31 15:58:17,165] [INFO] - [new-encrypt] C:\test\src\Q_GDW_105-2003.pdf
+[2014-10-31 15:58:17,302] [INFO] - [new-encrypt] C:\test\src\test1 - 副本.pdf
+[2014-10-31 15:58:17,436] [INFO] - [new-encrypt] C:\test\src\test1.pdf
+[2014-10-31 15:58:17,682] [INFO] - [new-encrypt] C:\test\src\test2 - 副本.pdf
+[2014-10-31 15:58:17,815] [INFO] - [new-encrypt] C:\test\src\test2.pdf
+[2014-10-31 15:58:17,815] [INFO] - [batch encrypt result] all[9] fail[0] new-encrypt[9] old-encrypt[0] re-encrypt[0]
+[2014-10-31 15:58:44,609] [INFO] - [batch encrypt request]
+  ------FROM: C:\test\src
+  ------  TO: C:\test\en
+[2014-10-31 15:58:44,648] [INFO] - [old-encrypt] C:\test\src\Q_GDW_101-2003.pdf
+[2014-10-31 15:58:44,665] [INFO] - [old-encrypt] C:\test\src\Q_GDW_102-2003.pdf
+[2014-10-31 15:58:44,680] [INFO] - [old-encrypt] C:\test\src\Q_GDW_103-2003.pdf
+[2014-10-31 15:58:44,702] [INFO] - [old-encrypt] C:\test\src\Q_GDW_104-2003.pdf
+[2014-10-31 15:59:44,617] [INFO] - 加密客户端启动成功
+[2014-10-31 15:59:57,654] [INFO] - admin登录成功！
+[2014-10-31 16:00:07,783] [INFO] - [batch encrypt request]
+  ------FROM: c:\test\src
+  ------  TO: c:\test\en
+[2014-10-31 16:00:08,225] [INFO] - [new-encrypt] c:\test\src\Q_GDW_101-2003.pdf
+[2014-10-31 16:00:08,343] [INFO] - [new-encrypt] c:\test\src\Q_GDW_102-2003.pdf
+[2014-10-31 16:00:08,640] [INFO] - [new-encrypt] c:\test\src\Q_GDW_103-2003.pdf
+[2014-10-31 16:00:08,829] [INFO] - [new-encrypt] c:\test\src\Q_GDW_104-2003.pdf
+[2014-10-31 16:00:08,939] [INFO] - [new-encrypt] c:\test\src\Q_GDW_105-2003.pdf
+[2014-10-31 16:00:09,070] [INFO] - [new-encrypt] c:\test\src\test1 - 副本.pdf
+[2014-10-31 16:00:09,189] [INFO] - [new-encrypt] c:\test\src\test1.pdf
+[2014-10-31 16:00:09,380] [INFO] - [new-encrypt] c:\test\src\test2 - 副本.pdf
+[2014-10-31 16:00:09,520] [INFO] - [new-encrypt] c:\test\src\test2.pdf
+[2014-10-31 16:00:09,521] [INFO] - [batch encrypt result] all[9] fail[0] new-encrypt[9] old-encrypt[0] re-encrypt[0]
+[2014-10-31 16:01:05,393] [INFO] - [batch encrypt request]
+  ------FROM: c:\test\src
+  ------  TO: c:\test\en
+[2014-10-31 16:01:05,523] [INFO] - [new-encrypt] c:\test\src\Q_GDW_101-2003.pdf
+[2014-10-31 16:01:05,657] [INFO] - [new-encrypt] c:\test\src\Q_GDW_102-2003.pdf
+[2014-10-31 16:01:05,749] [INFO] - [new-encrypt] c:\test\src\Q_GDW_103-2003.pdf
+[2014-10-31 16:01:05,840] [INFO] - [new-encrypt] c:\test\src\Q_GDW_104-2003.pdf
+[2014-10-31 16:01:05,910] [INFO] - [new-encrypt] c:\test\src\Q_GDW_105-2003.pdf
+[2014-10-31 16:01:06,007] [INFO] - [new-encrypt] c:\test\src\test1 - 副本.pdf
+[2014-10-31 16:01:06,108] [INFO] - [new-encrypt] c:\test\src\test1.pdf
+[2014-10-31 16:01:06,199] [INFO] - [new-encrypt] c:\test\src\test2 - 副本.pdf
+[2014-10-31 16:01:06,299] [INFO] - [new-encrypt] c:\test\src\test2.pdf
+[2014-10-31 16:01:06,301] [INFO] - [batch encrypt result] all[9] fail[0] new-encrypt[9] old-encrypt[0] re-encrypt[0]
+[2014-10-31 17:11:12,797] [INFO] - 加密客户端启动成功
+[2014-10-31 17:11:16,912] [INFO] - admin登录成功！
+[2014-10-31 17:11:34,387] [INFO] - [batch encrypt request]
+  ------FROM: c:\test\src
+  ------  TO: c:\test\en
+[2014-10-31 17:11:35,128] [INFO] - [new-encrypt] c:\test\src\Q_GDW_101-2003.pdf
+[2014-10-31 17:11:35,335] [INFO] - [new-encrypt] c:\test\src\Q_GDW_102-2003.pdf
+[2014-10-31 17:11:35,480] [INFO] - [new-encrypt] c:\test\src\Q_GDW_103-2003.pdf
+[2014-10-31 17:11:35,626] [INFO] - [new-encrypt] c:\test\src\Q_GDW_104-2003.pdf
+[2014-10-31 17:11:35,743] [INFO] - [new-encrypt] c:\test\src\Q_GDW_105-2003.pdf
+[2014-10-31 17:11:35,872] [INFO] - [new-encrypt] c:\test\src\test1 - 副本.pdf
+[2014-10-31 17:11:36,003] [INFO] - [new-encrypt] c:\test\src\test1.pdf
+[2014-10-31 17:11:36,197] [INFO] - [new-encrypt] c:\test\src\test2 - 副本.pdf
+[2014-10-31 17:11:36,358] [INFO] - [new-encrypt] c:\test\src\test2.pdf
+[2014-10-31 17:11:36,359] [INFO] - [batch encrypt result] all[9] fail[0] new-encrypt[9] old-encrypt[0] re-encrypt[0]
+[2014-10-31 17:14:26,887] [INFO] - 加密客户端启动成功
+[2014-10-31 17:14:31,302] [INFO] - admin登录成功！
+[2014-10-31 17:14:49,937] [INFO] - [batch encrypt request]
+  ------FROM: c:\test\src
+  ------  TO: c:\test\en
+[2014-10-31 17:14:50,487] [INFO] - [new-encrypt] c:\test\src\Q_GDW_101-2003.pdf
+[2014-10-31 17:14:50,628] [INFO] - [new-encrypt] c:\test\src\Q_GDW_102-2003.pdf
+[2014-10-31 17:14:50,759] [INFO] - [new-encrypt] c:\test\src\Q_GDW_103-2003.pdf
+[2014-10-31 17:14:50,905] [INFO] - [new-encrypt] c:\test\src\Q_GDW_104-2003.pdf
+[2014-10-31 17:14:51,011] [INFO] - [new-encrypt] c:\test\src\Q_GDW_105-2003.pdf
+[2014-10-31 17:14:51,115] [INFO] - [new-encrypt] c:\test\src\test1 - 副本.pdf
+[2014-10-31 17:14:51,214] [ERROR] - 
+cn.com.sgcc.dao.DaoException: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at cn.com.sgcc.dao.ResourceDaoImpl.insert(ResourceDaoImpl.java:367)
+	at cn.com.sgcc.crypto.CipherImpl.encryptFile(CipherImpl.java:174)
+	at cn.com.sgcc.crypto.CipherImpl.recursivelyEncrypt(CipherImpl.java:357)
+	at cn.com.sgcc.crypto.CipherImpl.encryptDir(CipherImpl.java:305)
+	at cn.com.sgcc.ui.BatchEncryptPanel$1$1.run(BatchEncryptPanel.java:84)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1116)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:344)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2332)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2369)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2153)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:792)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.GeneratedConstructorAccessor10.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:381)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:305)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at cn.com.sgcc.ds.DataSourceImpl.getConnection(DataSourceImpl.java:55)
+	at cn.com.sgcc.dao.ResourceDaoImpl.insert(ResourceDaoImpl.java:358)
+	... 5 more
+Caused by: java.net.SocketException: Permission denied: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:257)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:294)
+	... 20 more
+[2014-10-31 17:14:51,255] [ERROR] - 
+cn.com.sgcc.dao.DaoException: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at cn.com.sgcc.dao.ResourceDaoImpl.select(ResourceDaoImpl.java:247)
+	at cn.com.sgcc.crypto.CipherImpl.encryptFile(CipherImpl.java:138)
+	at cn.com.sgcc.crypto.CipherImpl.recursivelyEncrypt(CipherImpl.java:357)
+	at cn.com.sgcc.crypto.CipherImpl.encryptDir(CipherImpl.java:305)
+	at cn.com.sgcc.ui.BatchEncryptPanel$1$1.run(BatchEncryptPanel.java:84)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1116)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:344)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2332)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2369)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2153)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:792)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.GeneratedConstructorAccessor10.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:381)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:305)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at cn.com.sgcc.ds.DataSourceImpl.getConnection(DataSourceImpl.java:55)
+	at cn.com.sgcc.dao.ResourceDaoImpl.select(ResourceDaoImpl.java:233)
+	... 5 more
+Caused by: java.net.SocketException: Permission denied: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:257)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:294)
+	... 20 more
+[2014-10-31 17:14:51,261] [ERROR] - 
+cn.com.sgcc.dao.DaoException: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at cn.com.sgcc.dao.ResourceDaoImpl.select(ResourceDaoImpl.java:247)
+	at cn.com.sgcc.crypto.CipherImpl.encryptFile(CipherImpl.java:138)
+	at cn.com.sgcc.crypto.CipherImpl.recursivelyEncrypt(CipherImpl.java:357)
+	at cn.com.sgcc.crypto.CipherImpl.encryptDir(CipherImpl.java:305)
+	at cn.com.sgcc.ui.BatchEncryptPanel$1$1.run(BatchEncryptPanel.java:84)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1116)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:344)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2332)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2369)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2153)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:792)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.GeneratedConstructorAccessor10.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:381)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:305)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at cn.com.sgcc.ds.DataSourceImpl.getConnection(DataSourceImpl.java:55)
+	at cn.com.sgcc.dao.ResourceDaoImpl.select(ResourceDaoImpl.java:233)
+	... 5 more
+Caused by: java.net.SocketException: Permission denied: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.SocksSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:257)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:294)
+	... 20 more
+[2014-10-31 17:14:51,284] [INFO] - [batch encrypt result] all[9] fail[3] new-encrypt[6] old-encrypt[0] re-encrypt[0]
+[2014-10-31 17:16:31,039] [INFO] - 加密客户端启动成功
+[2014-10-31 17:16:35,261] [INFO] - admin登录成功！
+[2014-10-31 17:16:43,240] [INFO] - [batch encrypt request]
+  ------FROM: c:\test\src
+  ------  TO: c:\test\en
+[2014-10-31 17:16:43,771] [INFO] - [new-encrypt] c:\test\src\Q_GDW_101-2003.pdf
+[2014-10-31 17:16:43,892] [INFO] - [new-encrypt] c:\test\src\Q_GDW_102-2003.pdf
+[2014-10-31 17:16:44,025] [INFO] - [new-encrypt] c:\test\src\Q_GDW_103-2003.pdf
+[2014-10-31 17:16:44,158] [INFO] - [new-encrypt] c:\test\src\Q_GDW_104-2003.pdf
+[2014-10-31 17:16:44,248] [INFO] - [new-encrypt] c:\test\src\Q_GDW_105-2003.pdf
+[2014-10-31 17:16:44,350] [INFO] - [new-encrypt] c:\test\src\test1 - 副本.pdf
+[2014-10-31 17:16:44,473] [INFO] - [new-encrypt] c:\test\src\test1.pdf
+[2014-10-31 17:16:44,638] [INFO] - [new-encrypt] c:\test\src\test2 - 副本.pdf
+[2014-10-31 17:16:44,686] [ERROR] - 
+java.io.IOException: 磁盘空间不足。
+	at java.io.FileOutputStream.writeBytes(Native Method)
+	at java.io.FileOutputStream.write(Unknown Source)
+	at java.util.zip.DeflaterOutputStream.deflate(Unknown Source)
+	at java.util.zip.DeflaterOutputStream.write(Unknown Source)
+	at java.util.zip.ZipOutputStream.write(Unknown Source)
+	at cn.com.sgcc.packager.ZipPackager.pack(ZipPackager.java:48)
+	at cn.com.sgcc.crypto.CipherImpl.encryptFile(CipherImpl.java:162)
+	at cn.com.sgcc.crypto.CipherImpl.recursivelyEncrypt(CipherImpl.java:357)
+	at cn.com.sgcc.crypto.CipherImpl.encryptDir(CipherImpl.java:305)
+	at cn.com.sgcc.ui.BatchEncryptPanel$1$1.run(BatchEncryptPanel.java:84)
+	at java.lang.Thread.run(Unknown Source)
+[2014-10-31 17:16:44,690] [INFO] - [batch encrypt result] all[9] fail[1] new-encrypt[8] old-encrypt[0] re-encrypt[0]
+[2014-10-31 17:19:49,851] [INFO] - 加密客户端启动成功
+[2014-10-31 17:19:54,174] [INFO] - admin登录成功！
+[2014-10-31 17:20:11,334] [INFO] - [batch encrypt request]
+  ------FROM: d:\test\src
+  ------  TO: d:\test\en
+[2014-10-31 17:20:11,773] [INFO] - [new-encrypt] d:\test\src\Q_GDW_101-2003.pdf
+[2014-10-31 17:20:11,889] [INFO] - [new-encrypt] d:\test\src\Q_GDW_102-2003.pdf
+[2014-10-31 17:20:12,015] [INFO] - [new-encrypt] d:\test\src\Q_GDW_103-2003.pdf
+[2014-10-31 17:20:12,138] [INFO] - [new-encrypt] d:\test\src\Q_GDW_104-2003.pdf
+[2014-10-31 17:20:12,219] [INFO] - [new-encrypt] d:\test\src\Q_GDW_105-2003.pdf
+[2014-10-31 17:20:12,341] [INFO] - [new-encrypt] d:\test\src\test1 - 副本.pdf
+[2014-10-31 17:20:12,438] [INFO] - [new-encrypt] d:\test\src\test1.pdf
+[2014-10-31 17:20:12,569] [INFO] - [new-encrypt] d:\test\src\test2 - 副本.pdf
+[2014-10-31 17:20:12,668] [INFO] - [new-encrypt] d:\test\src\test2.pdf
+[2014-10-31 17:20:12,670] [INFO] - [batch encrypt result] all[9] fail[0] new-encrypt[9] old-encrypt[0] re-encrypt[0]

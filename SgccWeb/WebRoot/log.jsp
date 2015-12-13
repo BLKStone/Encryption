@@ -27,16 +27,53 @@
 </script>
 <style>
 </style>
+<%@ page import="java.io.*,java.util.*"%>
+<%@ page
+	import="org.apache.commons.logging.Log,org.apache.commons.logging.LogFactory"%>
+<%
+	Log logger = LogFactory.getLog("日志");
+	out.println(request.getContextPath()+"/logs/log");
+	out.println(this.getServletContext().getRealPath("/") + "logs" + File.separator + "log");
+	try {
+		
+		String path = request.getContextPath();
+		String LogStr;
+		File file=new File(request.getContextPath()+"/logs/log");
+		if(!file.exists()||file.isDirectory()){
+			System.out.println("ok");
+			throw new FileNotFoundException();
+		}
+		BufferedReader br=new BufferedReader(new FileReader(file));
+		String temp=null;
+		StringBuffer sb=new StringBuffer();
+		temp = br.readLine();
+		while(temp!=null){
+			sb.append(temp+"\n");
+			temp=br.readLine();
+		}
+		br.close();
+		LogStr = sb.toString();
+		out.println(LogStr);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		logger.error("日志文件未找到");
+		e.printStackTrace();
+		out.println("日志文件未找到");
+	}		
+%>
 </head>
 <body style="padding: 6px; overflow: hidden">
-	<div id="logPanel" style="float: left; margin-left: 10px; width: 700px; height: 500px" class="l-panel">
+	<div id="logPanel"
+		style="float: left; margin-left: 10px; width: 700px; height: 500px"
+		class="l-panel">
 		<div class="l-panel-header">
-			<div style="padding-top:5px; padding-left:5px">
+			<div style="padding-top: 5px; padding-left: 5px">
 				<span>日志</span>
 			</div>
 		</div>
 		<div class="l-panel-content">
-			<textarea style="width:100%; height:90%; border:1px ; outline:none;">
+			<textarea
+				style="width: 100%; height: 90%; border: 1px; outline: none;">
 				scfasdf
 			</textarea>
 		</div>
