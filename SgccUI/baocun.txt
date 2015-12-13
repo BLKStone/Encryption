@@ -1,0 +1,250 @@
+package com.example.zhanghao.services;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.IBinder;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+
+public class MainActivity extends ActionBarActivity
+{
+    IntentFilter intentFilter;
+
+    MyService serviceBinder;
+    Intent i;
+
+    private ServiceConnection connection=new ServiceConnection()
+    {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder)
+        {
+            serviceBinder=((MyService.MyBinder)iBinder).getService();
+            try
+            {
+                URL[] urls=new URL[]{
+                        new URL("http://www.amazon.com/somefiles.pdf"),
+                        new URL("http://www.wrox.com/somefiles.pdf"),
+                        new URL("http://www.google.com/somefiles.pdf"),
+                        new URL("http://www.learn2develop.net/somefiles.pdf")};
+            } catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            startService(i);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName)
+        {
+            serviceBinder=null;
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    public void startService(View view)
+    {
+//        startService(new Intent(getBaseContext(),MyService.class));
+//        Intent intent=new Intent(getBaseContext(),MyService.class);
+//        try
+//        {
+//            URL[] urls=new URL[]{
+//                    new URL("http://www.amazon.com/somefiles.pdf"),
+//                    new URL("http://www.wrox.com/somefiles.pdf"),
+//                    new URL("http://www.google.com/somefiles.pdf"),
+//                    new URL("http://www.learn2develop.net/somefiles.pdf")};
+//            intent.putExtra("URLs",urls);
+//        }catch (MalformedURLException e){
+//            e.printStackTrace();
+//        }
+//        startService(intent);
+        i=new Intent(MainActivity.this,MyService.class);
+        bindService(i,connection, Context.BIND_AUTO_CREATE);
+    }
+
+    public void stopService(View view)
+    {
+        stopService(new Intent(getBaseContext(),MyService.class));
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package com.example.zhanghao.services;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Objects;
+
+/**
+ * Created by zhanghao on 2015/4/16.
+ */
+public class MyService extends Service
+{
+    Thread thread;
+    public static final String TAG="MyService";
+    int counter=0;
+    URL[] urls;
+    static final int UPDATE_INTERVAL=1000;
+    private final IBinder binder=new MyBinder();
+
+    public class MyBinder extends Binder
+    {
+        MyService getService()
+        {
+            return MyService.this;
+        }
+    }
+
+    @Override
+    public IBinder onBind(Intent intent)
+    {
+        Log.i(TAG,"MyService onBind");
+        return null;
+    }
+
+    @Override
+    public void onCreate()
+    {
+        Log.i(TAG,"MyService onCreate");
+        super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+        Log.i(TAG,"MyService onStartCommand");
+        Toast.makeText(this,"Service Started!",Toast.LENGTH_LONG).show();
+
+        new DoBackgroundTask().execute(urls);
+
+//        thread=new Thread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                int count=0;
+//                Log.i(TAG,"this is the "+count+"th output");
+//                Log.i(TAG,"this is the "+count+"th output");
+//                while (++count>0)
+//                {
+//                    Log.i(TAG,"this is the "+count+"th output");
+//                    try
+//                    {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
+//        thread.start();
+//        Object[] objUrls=(Object[]) intent.getExtras().get("URLs");
+//        URL[] urls=new URL[objUrls.length];
+//        for(int i=0;i<objUrls.length;i++)
+//        {
+//            urls[i]=(URL)objUrls[i];
+//        }
+//        new DoBackgroundTask().execute(urls);
+//        try
+//        {
+//            new DoBackgroundTask().execute(
+//                    new URL("http://www.amazon.com/somefiles.pdf"),
+//                    new URL("http://www.wrox.com/somefiles.pdf"),
+//                    new URL("http://www.google.com/somefiles.pdf"),
+//                    new URL("http://www.learn2develop.net/somefiles.pdf"));
+//        } catch (MalformedURLException e)
+//        {
+//            e.printStackTrace();
+//        }
+
+        return START_STICKY;
+    }
+
+    private int DownloadFile(URL url)
+    {
+        try
+        {
+            Thread.sleep(5000);
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        return 100;
+    }
+
+    private class DoBackgroundTask extends AsyncTask<URL,Integer,Long>
+    {
+        protected Long doInBackground(URL... urls)
+        {
+            int count = urls.length;
+            long totalBytesDownloaded=0;
+            for(int i=0;i<count;i++)
+            {
+                totalBytesDownloaded+=DownloadFile(urls[i]);
+                publishProgress((int)(((float)count)*100));
+            }
+            return totalBytesDownloaded;
+        }
+
+        protected void onProgressUpdate(Integer... progress)
+        {
+            Log.i(TAG,String.valueOf(progress[0])+"% downloaded");
+            Toast.makeText(getBaseContext(),
+                    String.valueOf(progress[0])+"% downloaded",Toast.LENGTH_LONG).show();
+
+        }
+        protected void onPostExecute(Long result)
+        {
+            Toast.makeText(getBaseContext(),"Downloaded "+result+" bytes",Toast.LENGTH_LONG).show();
+            stopSelf();
+        }
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        Log.i(TAG,"MyService onDestroy");
+        super.onDestroy();
+        Toast.makeText(this,"Service Destroyed!",Toast.LENGTH_LONG).show();
+//        thread.destroy();
+    }
+}
+mysqld install MySQL --defaults-file="F:\worksetup\databases\mysql-5.6.24-winx64\my-default.ini"

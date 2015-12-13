@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+     <typeAlias alias="jiesuan" type="com.vstsoft.model.Jiesuan" />
+     <typeAlias alias="tongji2" type="com.vstsoft.model.Tongji2" />
+       <typeAlias alias="jiesuanclass" type="com.vstsoft.model.Jiesuanclass" />
+     <typeAlias alias="hkdj" type="com.vstsoft.model.Hkdj" />
+      <typeAlias alias="tcjs" type="com.vstsoft.model.Tcjs" />
+       <typeAlias alias="tcjsclass" type="com.vstsoft.model.Tcjsclass" />
+       <typeAlias alias="hkdjclass" type="com.vstsoft.model.Hkdjclass" />
+
+
+	<select id="jiesuanMET" parameterClass="tongji2" resultClass="jiesuan">
+		SELECT '团' AS 'tgj',
+        djjg AS 'djjg',
+        xsy AS 'xsy',
+        A.NUM3 AS 'xh',
+	    ISNULL(xstc,'') AS 'xstc',
+	    ISNULL(cwsh,'') AS 'cwsh',
+        ISNULL(kp,'') AS 'kp',
+        ISNULL(xcsktz,'') AS 'xcsktz',
+        ISNULL(kpjg,'') AS 'kpjg',
+        ISNULL(kptt,'') AS 'kptt',
+        ISNULL(kprq,'') AS 'kprq',
+        ISNULL(CONVERT(varchar,kpje),'') AS 'kpje',
+        ISNULL(CONVERT(varchar,kpje-收费合计),'') AS 'jskpykp',
+        ISNULL(fph,'') AS 'fph'
+FROM
+(SELECT '团' AS 'tgj',
+        MAX(DMZD.NAME) AS 'djjg',
+        MAX(JCXX.SQRY) AS 'xsy',
+        JCXX.NUM3
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+ ) AS A
+ LEFT OUTER JOIN
+ (SELECT 
+        MAX(LDLS.XSTC) AS 'xstc',
+        MAX(LDLS.CWSH) AS 'cwsh',
+        MAX(LDLS.KP) AS 'kp',
+        MAX(LDLS.XCSKTZ) AS 'xcsktz',
+        MAX(LDLS.KPTT) AS 'kptt',
+        NUM3 AS NUM3
+ FROM LDLS
+ GROUP BY NUM3
+ ) AS B ON A.NUM3=B.NUM3
+  LEFT OUTER JOIN
+(SELECT MAX(DMZD.NAME) 'kpjg',
+		CONVERT(varchar(20),MAX(JCXX_CWSF.SFRQ),102) AS 'kprq',
+        SUM(JCXX_CWSF.SKJE) AS 'kpje',
+		MAX(JCXX_CWSF.FPHM) AS 'fph',
+        JCXX.NUM3 AS NUM3
+ FROM JCXX,JCXX_CWSF,DMZD
+ WHERE JCXX.STUDYID=JCXX_CWSF.STUDYID
+ AND DMZD.DMLB=1
+ AND JCXX.TJBZ=2
+ AND JCXX_CWSF.SKJG=DMZD.CODE
+  AND JCXX.STUDYID IN
+   (SELECT STUDYID
+    FROM JCXX_SFXM
+    WHERE JCRQ BETWEEN #cong# AND #dao# )
+  GROUP BY JCXX.NUM3
+ ) AS C ON A.NUM3=C.NUM3
+ 
+ LEFT OUTER JOIN
+(SELECT CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计',
+		NUM3
+ FROM JCXX,JCXX_SFXM
+ WHERE JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+ ) AS D ON A.NUM3=D.NUM3
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '团检小计' AS '团个检',
+        '' AS '到检机构',
+        '' AS '销售员',
+        '' AS 'xh',
+	    '' AS '销售提出',
+	    '' AS '财务审核',
+        '' AS '开票',
+        '' AS '形成收款通知',
+        '' AS '开票机构',
+        '' AS '开票抬头',
+        '' AS '开票日期',
+        ISNULL(CONVERT(varchar,开票金额),'') AS '开票金额',
+        ISNULL(CONVERT(varchar,开票金额-收费合计),'') AS '结算开票/预开票',
+        '' AS '发票号码'
+FROM
+
+(SELECT SUM(JCXX_CWSF.SKJE) AS '开票金额'
+ FROM JCXX,JCXX_CWSF,DMZD
+ WHERE JCXX.STUDYID=JCXX_CWSF.STUDYID
+ AND DMZD.DMLB=1
+ AND JCXX.TJBZ=2
+ AND JCXX_CWSF.SKJG=DMZD.CODE
+  AND JCXX.STUDYID IN
+   (SELECT STUDYID
+    FROM JCXX_SFXM
+    WHERE JCRQ BETWEEN #cong# AND #dao# )
+ ) AS C ,
+(SELECT CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,JCXX_SFXM
+ WHERE JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ ) AS D 
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '个' AS '团个检',
+        到检机构 AS '到检机构',
+        销售员 AS '销售员',
+        '' AS 'xh',
+	    '' AS '销售提出',
+	    '' AS '财务审核',
+        '' AS '开票',
+        '' AS '形成收款通知',
+        '' AS '开票机构',
+        '' AS '开票抬头',
+        '' AS '开票日期',
+        ISNULL(CONVERT(varchar,收费合计),'') AS '开票金额',
+        '0.00' AS '结算开票/预开票',
+        '' AS '发票号码'
+FROM
+( SELECT 
+        MAX(DMZD.NAME) AS '到检机构',
+        ISNULL(JCXX.SQRY,'') AS '销售员',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   (JCXX.TJBZ=0 OR JCXX.TJBZ=1) 
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY ISNULL(JCXX.SQRY,'') ) AS A
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '个检小计' AS '团个检',
+        '' AS '到检机构',
+        '' AS '销售员',
+        '' AS 'xh',
+	    '' AS '销售提出',
+	    '' AS '财务审核',
+        '' AS '开票',
+        '' AS '形成收款通知',
+        '' AS '开票机构',
+        '' AS '开票抬头',
+        '' AS '开票日期',
+        ISNULL(CONVERT(varchar,收费合计),'') AS '开票金额',
+        '0.00' AS '结算开票/预开票',
+        '' AS '发票号码'
+FROM
+(
+SELECT '个检小计' AS '团个检',
+        '' AS '到检机构',
+        '' AS '销售员',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   (JCXX.TJBZ=0 OR JCXX.TJBZ=1) 
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+) AS D 
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '团/预开票' AS '团个检',
+        到检机构 AS '到检机构',
+        销售员 AS '销售员',
+        A.NUM3 AS 'xh',
+	    ISNULL(销售提出,'') AS '销售提出',
+	    ISNULL(财务审核,'') AS '财务审核',
+        ISNULL(开票,'') AS '开票',
+        ISNULL(形成收款通知,'') AS '形成收款通知',
+        ISNULL(开票机构,'') AS '开票机构',
+        ISNULL(开票抬头,'') AS '开票抬头',
+        ISNULL(开票日期,'') AS '开票日期',
+        ISNULL(CONVERT(varchar,开票金额),'') AS '开票金额',
+        ISNULL(CONVERT(varchar,开票金额),'') AS '结算开票/预开票',
+        ISNULL(发票号码,'') AS '发票号码'
+FROM
+(SELECT MAX(DMZD.NAME) AS '到检机构',
+        MAX(JCXX.SQRY) AS '销售员',
+        JCXX.NUM3
+ FROM JCXX,DMZD,JCXX_CWSF
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.TJBZ=2
+ AND   JCXX.SFBZ=3
+ AND   JCXX.STUDYID=JCXX_CWSF.STUDYID
+ AND   JCXX_CWSF.SFRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+ ) AS A
+ LEFT OUTER JOIN
+ (SELECT 
+        MAX(LDLS.XSTC) AS '销售提出',
+        MAX(LDLS.CWSH) AS '财务审核',
+        MAX(LDLS.KP) AS '开票',
+        MAX(LDLS.XCSKTZ) AS '形成收款通知',
+        MAX(LDLS.KPTT) AS '开票抬头',
+        NUM3 AS NUM3
+ FROM LDLS
+ GROUP BY NUM3
+ ) AS B ON A.NUM3=B.NUM3
+  LEFT OUTER JOIN
+(SELECT MAX(DMZD.NAME) '开票机构',
+		CONVERT(varchar(20),MAX(JCXX_CWSF.SFRQ),102) AS '开票日期',
+        SUM(JCXX_CWSF.SKJE) AS '开票金额',
+		MAX(JCXX_CWSF.FPHM) AS '发票号码',
+        JCXX.NUM3 AS NUM3
+ FROM JCXX,JCXX_CWSF,DMZD
+ WHERE JCXX.STUDYID=JCXX_CWSF.STUDYID
+ AND DMZD.DMLB=1
+ AND JCXX.TJBZ=2
+ AND JCXX_CWSF.SKJG=DMZD.CODE
+  AND JCXX.STUDYID IN
+   (SELECT STUDYID
+    FROM JCXX_CWSF
+    WHERE SFRQ BETWEEN #cong# AND #dao# )
+  GROUP BY JCXX.NUM3
+ ) AS C ON A.NUM3=C.NUM3
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '团/预开票小计' AS '团个检',
+        '' AS '到检机构',
+        '' AS '销售员',
+        '' AS 'xh',
+	    '' AS '销售提出',
+	    '' AS '财务审核',
+        '' AS '开票',
+        '' AS '形成收款通知',
+        '' AS '开票机构',
+        '' AS '开票抬头',
+        '' AS '开票日期',
+        ISNULL(CONVERT(varchar,开票金额),'') AS '开票金额',
+        ISNULL(CONVERT(varchar,开票金额),'') AS '结算开票/预开票',
+        '' AS '发票号码'
+FROM
+(SELECT MAX(DMZD.NAME) AS '到检机构',
+        MAX(JCXX.SQRY) AS '销售员'
+ FROM JCXX,DMZD,JCXX_CWSF
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.TJBZ=2
+ AND   JCXX.SFBZ=3
+ AND   JCXX.STUDYID=JCXX_CWSF.STUDYID
+ AND   JCXX_CWSF.SFRQ BETWEEN #cong# AND #dao#
+ ) AS A,
+ (SELECT 
+        MAX(LDLS.XSTC) AS '销售提出',
+        MAX(LDLS.CWSH) AS '财务审核',
+        MAX(LDLS.KP) AS '开票',
+        MAX(LDLS.XCSKTZ) AS '形成收款通知',
+        MAX(LDLS.KPTT) AS '开票抬头'
+ FROM LDLS
+ ) AS B,
+(SELECT MAX(DMZD.NAME) '开票机构',
+		CONVERT(varchar(20),MAX(JCXX_CWSF.SFRQ),102) AS '开票日期',
+        SUM(JCXX_CWSF.SKJE) AS '开票金额',
+		MAX(JCXX_CWSF.FPHM) AS '发票号码'
+ FROM JCXX,JCXX_CWSF,DMZD
+ WHERE JCXX.STUDYID=JCXX_CWSF.STUDYID
+ AND DMZD.DMLB=1
+ AND JCXX.TJBZ=2
+ AND JCXX.SFBZ=3
+ AND JCXX_CWSF.SKJG=DMZD.CODE
+  AND JCXX.STUDYID IN
+   (SELECT STUDYID
+    FROM JCXX_CWSF
+    WHERE SFRQ BETWEEN #cong# AND #dao# )
+ ) AS C
+
+	</select>
+	
+	<select id="hkdjMET" parameterClass="tongji2" resultClass="hkdj">
+		SELECT '团' AS 'tgj',
+        MAX(DMZD.NAME) AS 'djjg',
+        MAX(JCXX.SQRY) AS 'xsy',
+        JCXX.NUM3 AS 'xh',
+        MAX(LDLS.HKJG) AS 'hkjg',
+        MAX(LDLS.HKDW) AS 'hkdw',
+        MAX(LDLS.HKRQ) AS 'hkrq',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(LDLS.HKJE))) AS 'hkje',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(LDLS.ZCF))) AS 'zcf',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(LDLS.JTF))) AS 'jtf',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(LDLS.ZSF))) AS 'zsf',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(LDLS.QTFY))) AS 'qt',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        ISNULL(MAX(LDLS.ZCF),0)+ISNULL(MAX(LDLS.JTF),0)+
+        ISNULL(MAX(LDLS.ZSF),0)+ISNULL(MAX(LDLS.QTFY),0))) AS 'hj',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(LDLS.HKJE)-ISNULL(MAX(LDLS.ZCF),0)-ISNULL(MAX(LDLS.JTF),0)
+        -ISNULL(MAX(LDLS.ZSF),0)-ISNULL(MAX(LDLS.QTFY),0))) AS 'jhk'
+ FROM DMZD,JCXX_SFXM,JCXX LEFT OUTER JOIN LDLS ON JCXX.NUM3=LDLS.NUM3
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+ 
+ UNION ALL
+ 
+ SELECT '','','','','','','','','','','','','',''
+ 
+ UNION ALL
+ 
+ SELECT '总计' AS 'tgj',
+        '' AS 'djjg',
+        '' AS 'xsy',
+        '' AS 'xh',
+        '' AS 'hkjg',
+        '' AS 'hkdw',
+        '' AS 'hkrq',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(ISNULL(LDLS.HKJE,0)))) AS 'hkje',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(ISNULL(LDLS.ZCF,0)))) AS 'zcf',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(ISNULL(LDLS.JTF,0)))) AS 'jtf',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(ISNULL(LDLS.ZSF,0)))) AS 'zsf',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(ISNULL(LDLS.QTFY,0)))) AS 'qt',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        ISNULL(MAX(LDLS.ZCF),0)+ISNULL(MAX(LDLS.JTF),0)+
+        ISNULL(MAX(LDLS.ZSF),0)+ISNULL(MAX(LDLS.QTFY),0))) AS 'hj',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(ISNULL(LDLS.HKJE,0))-ISNULL(MAX(LDLS.ZCF),0)-ISNULL(MAX(LDLS.JTF),0)
+        -ISNULL(MAX(LDLS.ZSF),0)-ISNULL(MAX(LDLS.QTFY),0))) AS 'jhk'
+ FROM DMZD,JCXX_SFXM,JCXX LEFT OUTER JOIN LDLS ON JCXX.NUM3=LDLS.NUM3
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+
+	</select>
+	
+		<select id="tcjsMET" parameterClass="tongji2" resultClass="tcjs">
+	    SELECT '团' AS 'tgj',
+        MAX(DMZD.NAME) AS 'djjg',
+        MAX(JCXX.SQRY) AS 'xsy',
+        JCXX.NUM3 AS 'xh',
+        MAX(JCXX_SFXM.ZKL) AS 'zkl',
+        MAX(LDLS.TCBL) AS 'tcbl',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(JCXX_SFXM.ZKL)*MAX(LDLS.TCBL)*
+        (ISNULL (MAX(LDLS.HKJE)-ISNULL(MAX(LDLS.ZCF),0)-ISNULL(MAX(LDLS.JTF),0)
+        -ISNULL(MAX(LDLS.ZSF),0)-ISNULL(MAX(LDLS.QTFY),0),0)))) AS 'yjtce',
+        MAX(LDLS.CZQKK) AS 'czqkk',
+        MAX(LDLS.DDKX) AS 'ddkx',
+        CONVERT(varchar,CONVERT(DECIMAL(10,2),
+        MAX(JCXX_SFXM.ZKL)*MAX(LDLS.TCBL)*
+        (ISNULL (MAX(LDLS.HKJE)-ISNULL(MAX(LDLS.ZCF),0)-ISNULL(MAX(LDLS.JTF),0)
+        -ISNULL(MAX(LDLS.ZSF),0)-ISNULL(MAX(LDLS.QTFY),0),0))
+        -MAX(LDLS.CZQKK)-MAX(LDLS.DDKX) )) AS 'sftc'      
+ FROM DMZD,JCXX_SFXM,JCXX LEFT OUTER JOIN LDLS ON JCXX.NUM3=LDLS.NUM3
+ 
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+
+	</select>
+	
+	
+	
+	
+	<insert id="addhkdjMET" parameterClass="hkdjclass">
+		insert into LDLS(NUM3,HKJG,HKDW,HKRQ,HKJE,ZCF,JTF,ZSF,QTFY)
+		values(#xh#,#hkjg#,#hkdw#,#hkrq#,#hkje#,#zcf#,#jtf#,#zsf#,#qt#)
+	</insert>
+	
+	<update id="edithkdjMET" parameterClass="hkdjclass">
+		update LDLS set HKJG=#hkjg#,HKDW=#hkdw#,HKRQ=#hkrq#,HKJE=#hkje#,
+		 ZCF=#zcf#,JTF=#jtf#,ZSF=#zsf#,QTFY=#qt#
+		 where NUM3 = #xh#
+	</update>
+	
+	
+
+	
+	<insert id="addtcjsMET" parameterClass="tcjsclass">
+		insert into LDLS(NUM3,TCBL,CZQKK,DDKX)
+		values(#xh#,#tcbl#,#czqkk#,#ddkx#)
+	</insert>
+	
+	<update id="edittcjsMET" parameterClass="tcjsclass">
+		update LDLS set TCBL=#tcbl#,CZQKK=#czqkk#,DDKX=#ddkx#
+		                 
+		 where NUM3 = #xh#
+	</update>
+	
+
+	<insert id="addjiesuanMET" parameterClass="jiesuanclass">
+		insert into LDLS(NUM3,XSTC,CWSH,KP,XCSKTZ,KPTT)
+		values(#xh#,#xstc#,#cwsh#,#kp#,#xcsktz#,#kptt#)
+	</insert>
+	
+	<update id="editjiesuanMET" parameterClass="jiesuanclass">
+		update LDLS set XSTC=#xstc#,CWSH=#cwsh#,KP=#kp#,XCSKTZ=#xcsktz#,KPTT=#kptt#
+		                 
+		 where NUM3 = #xh#
+	</update>
+</sqlMap>

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+     <typeAlias alias="ribao" type="com.vstsoft.model.Ribao" />
+     <typeAlias alias="tongji2" type="com.vstsoft.model.Tongji2" />
+     <typeAlias alias="ribaob" type="com.vstsoft.model.Ribaob" />
+      <typeAlias alias="shoukuan" type="com.vstsoft.model.Shoukuan" />
+       <typeAlias alias="shoukuanclass" type="com.vstsoft.model.Shoukuanclass" />
+
+	<select id="ribaoMET" parameterClass="tongji2" resultClass="ribao">
+		SELECT tgj,djjg,xsy,tjdwmc,jsdwmc,
+       CONVERT(varchar,ISNULL(djrs,0))   AS djrs,
+       CONVERT(varchar,ISNULL(wdjrs,0)) AS wdjrs,
+       tcmc,
+       CONVERT(varchar,kldj) AS kldj,
+       CONVERT(varchar,kldj*ISNULL(djrs,0)) AS klzj,
+       CONVERT(varchar,jsdj) AS jsdj,
+       CONVERT(varchar,jsdj*ISNULL(djrs,0)) AS jszj,
+       CONVERT(varchar,ISNULL(jxje,0)) AS jxje, 
+       CONVERT(varchar,jsdj*ISNULL(djrs,0)+ISNULL(jxje,0)) AS jsjhj
+FROM
+
+(SELECT '团' AS 'tgj',
+        MAX(DMZD.NAME) AS 'djjg',
+        MAX(JCXX.SQRY) AS 'xsy',
+        MAX(DWMC.DWMC) AS 'tjdwmc',
+        ISNULL(MAX(LDLS.KPTT),MAX(DWMC.DWMC)) AS 'jsdwmc',
+        MAX(JCXX.CKTC) AS 'tcmc',
+		JCXX.NUM3 AS NUM3
+ FROM JCXX LEFT OUTER JOIN LDLS ON JCXX.NUM3=LDLS.NUM3,DMZD,DWMC,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.DWDM=DWMC.DWDM
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+ ) AS A
+LEFT OUTER JOIN
+ (SELECT 
+        COUNT(JCXX.STUDYID) AS 'wdjrs',
+        NUM3 AS NUM3
+ FROM JCXX
+ WHERE JCXX.WCBZ=0
+ GROUP BY JCXX.NUM3
+ ) AS B ON A.NUM3=B.NUM3
+  LEFT OUTER JOIN
+ (SELECT 
+		COUNT(DISTINCT JCXX.STUDYID) AS 'djrs',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ IS NULL THEN JCXX_SFXM.KLJE ELSE 0 END)/COUNT(DISTINCT JCXX.STUDYID) AS 'kldj',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ IS NULL THEN JCXX_SFXM.SFJE ELSE 0 END)/COUNT(DISTINCT JCXX.STUDYID) AS 'jsdj',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ=2 THEN JCXX_SFXM.SFJE ELSE 0 END) AS 'jxje',
+        JCXX.NUM3 AS NUM3
+ FROM JCXX,JCXX_SFXM
+ WHERE JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND JCXX.STUDYID IN
+   (SELECT STUDYID
+    FROM JCXX_SFXM
+    WHERE JCRQ BETWEEN #cong# AND #dao# )
+ GROUP BY JCXX.NUM3
+ ) AS C ON A.NUM3=C.NUM3
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','','',''
+ UNION ALL
+ 
+  SELECT '','','','团检小计','',
+       CONVERT(varchar,ISNULL(到检人数,0)) AS 到检人数,
+       CONVERT(varchar,ISNULL(未到检人数,0)) AS 未到检人数,'',
+       '',CONVERT(varchar,刊例总价) AS 刊例总价,
+       '',CONVERT(varchar,结算总价) AS 结算总价,
+       CONVERT(varchar,ISNULL(加项金额,0)) AS 加项金额, 
+       CONVERT(varchar,结算总价+加项金额) AS 结算价合计
+FROM
+
+ (SELECT 
+        COUNT(DISTINCT JCXX.STUDYID) AS 未到检人数
+ FROM JCXX
+ WHERE JCXX.WCBZ=0
+ AND JCXX.TJBZ=2
+ AND   JCXX.NUM3 IN 
+   ( SELECT NUM3
+     FROM JCXX
+	 WHERE STUDYID IN 
+	   ( SELECT STUDYID
+		 FROM JCXX_SFXM
+		 WHERE JCRQ BETWEEN #cong# AND #dao#))
+
+ ) AS B ,
+ (SELECT 
+		COUNT(DISTINCT JCXX.STUDYID) AS '到检人数',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ IS NULL THEN JCXX_SFXM.KLJE ELSE 0 END) AS '刊例总价',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ IS NULL THEN JCXX_SFXM.SFJE ELSE 0 END) AS '结算总价',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ=2 THEN JCXX_SFXM.SFJE ELSE 0 END) AS '加项金额'
+ FROM JCXX,JCXX_SFXM
+ WHERE JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND JCXX.TJBZ=2
+ AND JCXX.STUDYID IN
+   (SELECT STUDYID
+    FROM JCXX_SFXM
+    WHERE JCRQ BETWEEN #cong# AND #dao# )
+
+ ) AS C 
+ 
+  UNION ALL
+  SELECT '','','','','','','','','','','','','',''
+  UNION ALL
+  
+  SELECT 团个检,到检机构,销售员,体检单位名称,结算单位名称,
+       CONVERT(varchar,ISNULL(到检人数,0))   AS 到检人数,
+       '' AS 未到检人数,
+       ISNULL(套餐名称,''),
+       '' AS 刊例单价,
+       CONVERT(varchar,刊例总价) AS 刊例总价,
+       '' AS 结算单价,
+       CONVERT(varchar,结算总价) AS 结算总价,
+       CONVERT(varchar,ISNULL(加项金额,0)) AS 加项金额, 
+       CONVERT(varchar,结算总价+ISNULL(加项金额,0)) AS 结算价合计
+FROM
+
+(SELECT '个' AS '团个检',
+        CASE WHEN COUNT(DISTINCT DMZD.NAME)>1 THEN '' ELSE MAX(DMZD.NAME) END AS '到检机构',
+        CASE WHEN COUNT(DISTINCT DWMC.DWMC)>1 THEN '' ELSE MAX(DWMC.DWMC) END AS '体检单位名称',
+        CASE WHEN COUNT(DISTINCT DWMC.DWMC)>1 THEN '' ELSE MAX(DWMC.DWMC) END AS '结算单位名称',
+        CASE WHEN COUNT(DISTINCT JCXX.CKTC)>1 THEN '' ELSE MAX(JCXX.CKTC) END AS  '套餐名称',
+		COUNT(DISTINCT JCXX.STUDYID) AS '到检人数',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ IS NULL THEN JCXX_SFXM.KLJE ELSE 0 END) AS '刊例总价',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ IS NULL THEN JCXX_SFXM.SFJE ELSE 0 END) AS '结算总价',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ=2 THEN JCXX_SFXM.SFJE ELSE 0 END) AS '加项金额',
+        ISNULL(JCXX.SQRY,'') AS '销售员'
+
+ FROM JCXX,DMZD,DWMC,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   DWMC.DWDM=ISNULL(JCXX.DWDM,9999999)
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   (JCXX.TJBZ=0 OR JCXX.TJBZ=1)
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY ISNULL(JCXX.SQRY,'')
+ ) AS A
+ 
+   UNION ALL
+  SELECT '','','','','','','','','','','','','',''
+  UNION ALL
+  
+  SELECT '','','','个检小计','',
+       CONVERT(varchar,ISNULL(到检人数,0)) AS 到检人数,
+       '' AS 未到检人数,
+       '',
+       '' AS 刊例单价,
+       CONVERT(varchar,刊例总价) AS 刊例总价,
+       '' AS 结算单价,
+       CONVERT(varchar,结算总价) AS 结算总价,
+       CONVERT(varchar,ISNULL(加项金额,0)) AS 加项金额, 
+       CONVERT(varchar,结算总价+ISNULL(加项金额,0)) AS 结算价合计
+FROM
+
+(SELECT 
+		COUNT(DISTINCT JCXX.STUDYID) AS '到检人数',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ IS NULL THEN JCXX_SFXM.KLJE ELSE 0 END) AS '刊例总价',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ IS NULL THEN JCXX_SFXM.SFJE ELSE 0 END) AS '结算总价',
+        SUM(CASE WHEN JCXX_SFXM.JXBZ=2 THEN JCXX_SFXM.SFJE ELSE 0 END) AS '加项金额'
+
+ FROM JCXX,DMZD,DWMC,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   DWMC.DWDM=ISNULL(JCXX.DWDM,9999999)
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   (JCXX.TJBZ=0 OR JCXX.TJBZ=1)
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ ) AS A
+ 
+
+	</select>
+	
+	<select id="ribaobMET" parameterClass="tongji2" resultClass="ribaob">
+		SELECT '团' AS 'tgj',
+        MAX(DMZD.NAME) AS 'djjg',
+        MAX(JCXX.SQRY) AS 'xsy',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=0 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'tjtf',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=1 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'xj',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=2 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'ylk',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=3 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'tckjsje',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=4 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'czkskje',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS 'sfhj'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+ 
+ UNION ALL
+  SELECT '','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '团检小计' AS 'tgj',
+        '' AS 'djjg',
+        '' AS 'xsy',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=0 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'tjtf',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=1 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'xj',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=2 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'ylk',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=3 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'tckjsje',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=4 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS 'czkskje',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.TJBZ=2 
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ 
+ UNION ALL
+  SELECT '','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '个' AS '团个检',
+        MAX(DMZD.NAME) AS '到检机构',
+        ISNULL(JCXX.SQRY,'') AS '销售员',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=0 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '团检团付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=1 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '团检个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=2 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=3 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '套餐卡个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=4 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '销售员支付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   (JCXX.TJBZ=0 OR JCXX.TJBZ=1) 
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY ISNULL(JCXX.SQRY,'')
+ 
+ UNION ALL
+  SELECT '','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '个检小计' AS '团个检',
+        '' AS '到检机构',
+        '' AS '销售员',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=0 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '团检团付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=1 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '团检个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=2 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=3 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '套餐卡个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=4 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '销售员支付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   (JCXX.TJBZ=0 OR JCXX.TJBZ=1) 
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ 
+ UNION ALL
+  SELECT '','','','','','','','',''
+ UNION ALL
+  SELECT '','','','','','','','',''
+ UNION ALL
+ 
+  SELECT '合计' AS '团个检',
+        '' AS '到检机构',
+        '' AS '销售员',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=0 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '团检团付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=1 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '团检个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=2 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=3 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '套餐卡个付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM( CASE WHEN JCXX_SFXM.SFFS=4 THEN JCXX_SFXM.SFJE ELSE 0 END))) AS '销售员支付',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+
+	</select>
+	
+	<select id="shoukuanMET" parameterClass="tongji2" resultClass="shoukuan">
+		SELECT '团' AS 'tgj',
+        djjg AS 'djjg',
+        xsy AS 'xsy',
+        A.NUM3 AS 'xh',
+		CONVERT(varchar,qcssix) AS 'qcssix',
+		ISNULL(CONVERT(varchar,收费合计),'') AS 'bqjszjs',
+		ISNULL(CONVERT(varchar,开票金额),'') AS 'bqkpss',
+		CONVERT(varchar,qcssix+收费合计-开票金额) AS 'qmsix',
+		CONVERT(varchar,qcsfive) AS 'qcsfive',
+		ISNULL(CONVERT(varchar,开票金额),'') AS 'bqkpsfive',
+		ISNULL(CONVERT(varchar,回款金额),'') AS 'bqhksfive',
+		CONVERT(varchar,qcsfive+开票金额-回款金额) AS 'qmfive',
+		CONVERT(varchar,qcsfive-回款金额+qcssix+收费合计) AS 'qmze'
+FROM
+(SELECT '团' AS 'tgj',
+        MAX(DMZD.NAME) AS 'djjg',
+        MAX(JCXX.SQRY) AS 'xsy',
+        JCXX.NUM3 AS NUM3
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+ ) AS A
+ LEFT OUTER JOIN
+ (SELECT 
+        MAX(LDLS.QC05) AS 'qcsfive',
+        MAX(LDLS.QC06) AS 'qcssix',
+        MAX(LDLS.HKJE) AS '回款金额',
+        NUM3 AS NUM3
+ FROM LDLS
+ GROUP BY NUM3
+ ) AS B ON A.NUM3=B.NUM3
+  LEFT OUTER JOIN
+(SELECT 
+        SUM(JCXX_CWSF.SKJE) AS '开票金额',
+        JCXX.NUM3 AS NUM3
+ FROM JCXX,JCXX_CWSF
+ WHERE JCXX.STUDYID=JCXX_CWSF.STUDYID
+ AND JCXX.TJBZ=2
+  AND JCXX.STUDYID IN
+   (SELECT STUDYID
+    FROM JCXX_SFXM
+    WHERE JCRQ BETWEEN #cong# AND #dao# )
+  GROUP BY JCXX.NUM3
+ ) AS C ON A.NUM3=C.NUM3
+ 
+ LEFT OUTER JOIN
+(SELECT CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计',
+		NUM3
+ FROM JCXX,JCXX_SFXM
+ WHERE JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY JCXX.NUM3
+ ) AS D ON A.NUM3=D.NUM3
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '团检小结' AS '团个检',
+        '' AS '到检机构',
+        '' AS '销售员',
+        '',
+		CONVERT(varchar,期初数06) AS '期初数06',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票增加数',
+		ISNULL(CONVERT(varchar,开票金额),'') AS '本期开票算数',
+		CONVERT(varchar,期初数06+收费合计-开票金额) AS '期末06',
+		CONVERT(varchar,期初数05) AS '期初数05',
+		ISNULL(CONVERT(varchar,开票金额),'') AS '本期开票算数',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票增加数',
+		CONVERT(varchar,期初数05+收费合计-开票金额) AS '期末05',
+		CONVERT(varchar,期初数05-回款金额+期初数06+收费合计) AS '期末总额'
+FROM
+(SELECT '团检小结' AS '团个检',
+        MAX(DMZD.NAME) AS '到检机构',
+        MAX(JCXX.SQRY) AS '销售员'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ ) AS A,
+ (SELECT 
+        MAX(LDLS.QC05) AS '期初数05',
+        MAX(LDLS.QC06) AS '期初数06',
+        MAX(LDLS.HKJE) AS '回款金额'
+ FROM LDLS
+ WHERE LDLS.NUM3 IN 
+   (SELECT NUM3 FROM JCXX WHERE JCXX.STUDYID IN
+   (SELECT STUDYID FROM JCXX_SFXM WHERE JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#) )
+ ) AS B,
+(SELECT 
+        SUM(JCXX_CWSF.SKJE) AS '开票金额'
+ FROM JCXX,JCXX_CWSF
+ WHERE JCXX.STUDYID=JCXX_CWSF.STUDYID
+ AND JCXX.TJBZ=2
+  AND JCXX.STUDYID IN
+   (SELECT STUDYID
+    FROM JCXX_SFXM
+    WHERE JCRQ BETWEEN #cong# AND #dao# )
+ ) AS C,
+
+(SELECT CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,JCXX_SFXM
+ WHERE JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX.TJBZ=2
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ ) AS D
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '个' AS '团个检',
+        到检机构 AS '到检机构',
+        销售员 AS '销售员',
+		'',
+		'' AS '期初数06',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票增加数',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票算数',
+		'' AS '期末06',
+		'' AS '期初数05',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票算数',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票增加数',
+		'' AS '期末05',
+		'0.00' 
+FROM
+( SELECT 
+        MAX(DMZD.NAME) AS '到检机构',
+        ISNULL(JCXX.SQRY,'') AS '销售员',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   (JCXX.TJBZ=0 OR JCXX.TJBZ=1) 
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+ GROUP BY ISNULL(JCXX.SQRY,'') ) AS A
+ 
+ UNION ALL
+  SELECT '','','','','','','','','','','','',''
+ UNION ALL
+ 
+ SELECT '个检小结' AS '团个检',
+        到检机构 AS '到检机构',
+        销售员 AS '销售员',
+        '',
+		'' AS '期初数06',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票增加数',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票算数',
+		'' '期末06',
+		'' AS '期初数05',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票算数',
+		ISNULL(CONVERT(varchar,收费合计),'') AS '本期开票增加数',
+		'' AS '期末05',
+		'0.00' 
+ FROM (
+SELECT '个检小计' AS '团个检',
+        '' AS '到检机构',
+        '' AS '销售员',
+        '' as 'xh',
+		CONVERT(varchar,CONVERT(DECIMAL(10,2),
+		SUM(JCXX_SFXM.SFJE))) AS '收费合计'
+ FROM JCXX,DMZD,JCXX_SFXM
+ WHERE DMZD.DMLB=1
+ AND   DMZD.CODE=JCXX.YLJG
+ AND   (JCXX.TJBZ=0 OR JCXX.TJBZ=1) 
+ AND   JCXX.STUDYID=JCXX_SFXM.STUDYID
+ AND   JCXX_SFXM.JCRQ BETWEEN #cong# AND #dao#
+) AS D 
+	</select>
+	
+
+	
+	<insert id="addshoukuanMET" parameterClass="shoukuanclass">
+		insert into LDLS(NUM3,QC05,QC06)
+		values(#xh#,#qcssix#,#qcsfive#)
+	</insert>
+	
+	<update id="editshoukuanMET" parameterClass="shoukuanclass">
+		update LDLS set QC06=#qcssix#,QC05=#qcsfive#
+		 where NUM3 = #xh#
+	</update>
+	
+</sqlMap>

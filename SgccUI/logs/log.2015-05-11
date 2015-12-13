@@ -1,0 +1,228 @@
+[2015-05-11 08:43:04,469] [INFO] - 加密客户端启动成功
+[2015-05-11 08:43:32,934] [ERROR] - 
+cn.com.sgcc.dao.DaoException: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at cn.com.sgcc.dao.UserDaoImpl.select(UserDaoImpl.java:92)
+	at cn.com.sgcc.ui.LoginPanel$1.actionPerformed(LoginPanel.java:94)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1995)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2318)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:387)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:242)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:236)
+	at org.jvnet.substance.utils.RolloverButtonListener.mouseReleased(RolloverButtonListener.java:109)
+	at java.awt.Component.processMouseEvent(Component.java:6290)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3267)
+	at java.awt.Component.processEvent(Component.java:6055)
+	at java.awt.Container.processEvent(Container.java:2039)
+	at java.awt.Component.dispatchEventImpl(Component.java:4653)
+	at java.awt.Container.dispatchEventImpl(Container.java:2097)
+	at java.awt.Component.dispatchEvent(Component.java:4481)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4575)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4236)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4166)
+	at java.awt.Container.dispatchEventImpl(Container.java:2083)
+	at java.awt.Window.dispatchEventImpl(Window.java:2482)
+	at java.awt.Component.dispatchEvent(Component.java:4481)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:648)
+	at java.awt.EventQueue.access$000(EventQueue.java:84)
+	at java.awt.EventQueue$1.run(EventQueue.java:607)
+	at java.awt.EventQueue$1.run(EventQueue.java:605)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.AccessControlContext$1.doIntersectionPrivilege(AccessControlContext.java:87)
+	at java.security.AccessControlContext$1.doIntersectionPrivilege(AccessControlContext.java:98)
+	at java.awt.EventQueue$2.run(EventQueue.java:621)
+	at java.awt.EventQueue$2.run(EventQueue.java:619)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.AccessControlContext$1.doIntersectionPrivilege(AccessControlContext.java:87)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:618)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1116)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:344)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2332)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2369)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2153)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:792)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:381)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:305)
+	at java.sql.DriverManager.getConnection(DriverManager.java:582)
+	at java.sql.DriverManager.getConnection(DriverManager.java:185)
+	at cn.com.sgcc.ds.DataSourceImpl.getConnection(DataSourceImpl.java:55)
+	at cn.com.sgcc.dao.UserDaoImpl.select(UserDaoImpl.java:74)
+	... 38 more
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:351)
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:213)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:200)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366)
+	at java.net.Socket.connect(Socket.java:529)
+	at java.net.Socket.connect(Socket.java:478)
+	at java.net.Socket.<init>(Socket.java:375)
+	at java.net.Socket.<init>(Socket.java:218)
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:257)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:294)
+	... 54 more
+[2015-05-11 08:43:43,864] [ERROR] - 
+cn.com.sgcc.dao.DaoException: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at cn.com.sgcc.dao.UserDaoImpl.select(UserDaoImpl.java:92)
+	at cn.com.sgcc.ui.LoginPanel$1.actionPerformed(LoginPanel.java:94)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1995)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2318)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:387)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:242)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:236)
+	at org.jvnet.substance.utils.RolloverButtonListener.mouseReleased(RolloverButtonListener.java:109)
+	at java.awt.Component.processMouseEvent(Component.java:6290)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3267)
+	at java.awt.Component.processEvent(Component.java:6055)
+	at java.awt.Container.processEvent(Container.java:2039)
+	at java.awt.Component.dispatchEventImpl(Component.java:4653)
+	at java.awt.Container.dispatchEventImpl(Container.java:2097)
+	at java.awt.Component.dispatchEvent(Component.java:4481)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4575)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4236)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4166)
+	at java.awt.Container.dispatchEventImpl(Container.java:2083)
+	at java.awt.Window.dispatchEventImpl(Window.java:2482)
+	at java.awt.Component.dispatchEvent(Component.java:4481)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:648)
+	at java.awt.EventQueue.access$000(EventQueue.java:84)
+	at java.awt.EventQueue$1.run(EventQueue.java:607)
+	at java.awt.EventQueue$1.run(EventQueue.java:605)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.AccessControlContext$1.doIntersectionPrivilege(AccessControlContext.java:87)
+	at java.security.AccessControlContext$1.doIntersectionPrivilege(AccessControlContext.java:98)
+	at java.awt.EventQueue$2.run(EventQueue.java:621)
+	at java.awt.EventQueue$2.run(EventQueue.java:619)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.AccessControlContext$1.doIntersectionPrivilege(AccessControlContext.java:87)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:618)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:269)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:184)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1116)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:344)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2332)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2369)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2153)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:792)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:381)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:305)
+	at java.sql.DriverManager.getConnection(DriverManager.java:582)
+	at java.sql.DriverManager.getConnection(DriverManager.java:185)
+	at cn.com.sgcc.ds.DataSourceImpl.getConnection(DataSourceImpl.java:55)
+	at cn.com.sgcc.dao.UserDaoImpl.select(UserDaoImpl.java:74)
+	... 38 more
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:351)
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:213)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:200)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366)
+	at java.net.Socket.connect(Socket.java:529)
+	at java.net.Socket.connect(Socket.java:478)
+	at java.net.Socket.<init>(Socket.java:375)
+	at java.net.Socket.<init>(Socket.java:218)
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:257)
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:294)
+	... 54 more
+[2015-05-11 08:44:36,735] [INFO] - admin登录成功！
+[2015-05-11 08:44:58,501] [ERROR] -  not exists
+[2015-05-11 08:45:16,880] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 10:37:57,968] [INFO] - 加密客户端启动成功
+[2015-05-11 10:38:05,797] [INFO] - admin登录成功！
+[2015-05-11 10:38:28,825] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 10:49:23,577] [INFO] - 加密客户端启动成功
+[2015-05-11 10:49:30,732] [INFO] - admin登录成功！
+[2015-05-11 10:49:48,182] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 10:49:49,137] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\ideas\Ch1 导论.pdf
+[2015-05-11 10:49:49,140] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[1] old-encrypt[0] re-encrypt[0]
+[2015-05-11 10:52:21,151] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 10:52:21,182] [INFO] - [old-encrypt] C:\Users\zhanghao\Desktop\ideas\Ch1 导论.pdf
+[2015-05-11 10:52:21,183] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]
+[2015-05-11 11:02:30,545] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 11:02:30,566] [INFO] - [old-encrypt] C:\Users\zhanghao\Desktop\ideas\Ch1 导论.pdf
+[2015-05-11 11:02:30,566] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]
+[2015-05-11 11:05:59,625] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 11:05:59,647] [INFO] - [old-encrypt] C:\Users\zhanghao\Desktop\ideas\Ch1 导论.pdf
+[2015-05-11 11:05:59,647] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]
+[2015-05-11 12:10:36,341] [INFO] - 加密客户端启动成功
+[2015-05-11 12:10:51,211] [INFO] - admin登录成功！
+[2015-05-11 12:12:42,880] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 12:13:06,029] [INFO] - [old-encrypt] C:\Users\zhanghao\Desktop\ideas\Ch1 导论.pdf
+[2015-05-11 12:30:19,941] [INFO] - 加密客户端启动成功
+[2015-05-11 12:30:31,218] [INFO] - admin登录成功！
+[2015-05-11 12:30:31,527] [INFO] - admin登录成功！
+[2015-05-11 12:34:38,896] [INFO] - 加密客户端启动成功
+[2015-05-11 12:34:47,779] [INFO] - admin登录成功！
+[2015-05-11 12:35:27,349] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Documents
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 12:36:44,981] [ERROR] -  not exists
+[2015-05-11 12:45:54,162] [INFO] - 加密客户端启动成功
+[2015-05-11 12:46:05,586] [INFO] - admin登录成功！
+[2015-05-11 12:48:53,931] [INFO] - 加密客户端启动成功
+[2015-05-11 12:49:01,543] [INFO] - admin登录成功！
+[2015-05-11 12:54:45,796] [INFO] - 加密客户端启动成功
+[2015-05-11 12:54:54,269] [INFO] - admin登录成功！
+[2015-05-11 13:20:04,723] [INFO] - 加密客户端启动成功
+[2015-05-11 13:20:13,995] [INFO] - admin登录成功！
+[2015-05-11 13:20:36,912] [INFO] - [batch encrypt request]
+  ------FROM: C:\Users\zhanghao\Desktop\ideas
+  ------  TO: C:\Users\zhanghao\Desktop\Broadcast
+[2015-05-11 13:20:37,009] [INFO] - [old-encrypt] C:\Users\zhanghao\Desktop\ideas\Ch1 导论.pdf
+[2015-05-11 13:20:37,842] [INFO] - [new-encrypt] C:\Users\zhanghao\Desktop\ideas\dll\lecture 01_1502.pdf
+[2015-05-11 13:20:37,843] [INFO] - [batch encrypt result] all[2] fail[0] new-encrypt[1] old-encrypt[1] re-encrypt[0]

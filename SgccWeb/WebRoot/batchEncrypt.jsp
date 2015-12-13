@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>日报</title>
+<title>批量加密</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link href="Styles/skins/Aqua/css/ligerui-all.css" rel="stylesheet"
@@ -12,6 +12,7 @@
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript" src="js/ligerResizable.js"></script>
 <script type="text/javascript" src="js/ligerGrid.js"></script>
+<script type="text/javascript" src="js/ligerToolBar.js"></script>
 <script type="text/javascript" src="js/ligerui.min.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/json2.js"></script>
@@ -56,7 +57,7 @@
 			where : f_getWhere(),
 			data : $.extend(true, {}, data),
 			//data : data,
-			width : '99%',
+			width : '68%',
 			height : '90%'
 		});
 	});
@@ -113,27 +114,11 @@
 		};
 		return clause;
 	}
-	function chooseFile() {
-		try {
-	        var Message = "\u8bf7\u9009\u62e9\u6587\u4ef6\u5939"; //选择框提示信息
-	        var Shell = new ActiveXObject("Shell.Application");
-	        var Folder = Shell.BrowseForFolder(0, Message, 64, 17); //起始目录为：我的电脑
-	        //var Folder = Shell.BrowseForFolder(0, Message, 0); //起始目录为：桌面
-	        if (Folder != null) {
-	            Folder = Folder.items(); // 返回 FolderItems 对象
-	            Folder = Folder.item(); // 返回 Folderitem 对象
-	            Folder = Folder.Path; // 返回路径
-	            if (Folder.charAt(Folder.length - 1) != "\\") {
-	                Folder = Folder + "\\";
-	            }
-	            document.getElementById(path).value = Folder;
-	            return Folder;
-	        }
-	    }
-	    catch (e) {
-	        alert(e.message);
-	    } 
-		alert("hello");
+	function getFiles(){
+		
+	}
+	function encrypt(){
+		
 	}
 </script>
 <style>
@@ -148,14 +133,13 @@
 	<div style="margin:10px 0 0 10px">
 		<div>
 			<label style="width: 65px; display: inline-block">源路径:</label>
-			<input type="text" id="from" style="width: 400px;" class="l-text">
-			<button onclick="chooseFile()" class="my-button" style="margin:0px 0px 0px 10px;">选择</button>
+			<input type="text" id="from" placeholder="from" style="width: 400px;" class="l-text">
+			<button onclick="getFiles()" class="my-button" style="margin:0px 0px 0px 15px;">确定</button>
 		</div>
 		<div style="margin:10px 0 0 0">
 			<label style="width: 65px; display: inline-block">目标路径:</label>
-			<input type="text" id="to" style="width: 400px;" class="l-text">
-			<button on-click="chooseFile()" class="my-button" style="margin:0px 0px 0px 10px;">选择</button>
-			<button on-click="chooseFile()" class="my-button" style="margin:0px 0px 0px 15px;">开始加密</button>
+			<input type="text" id="to" placeholder="to" style="width: 400px;" class="l-text">
+			<button on-click="encrypt()" class="my-button" style="margin:0px 0px 0px 15px;">开始加密</button>
 		</div>
 	</div>
 	<div id="searchbar" style="margin: 20px 0 5px 10px">
