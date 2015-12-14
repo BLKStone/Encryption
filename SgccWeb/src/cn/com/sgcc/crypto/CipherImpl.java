@@ -2,6 +2,8 @@ package cn.com.sgcc.crypto;
 
 import java.io.*;
 import java.security.*;
+import java.util.Vector;
+
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.spec.*;
@@ -124,6 +126,7 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 		String toFilename = filename + destinationSuffix;
 		File toFile = new File(toDir, toFilename);
 
+		System.out.println(fromFilename);
 		InputStream encryptedContent = null;
 		OutputStream toFileOuts = null;
 
@@ -339,6 +342,7 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 
 	private void recursivelyEncrypt(File fromDir, File toDir, Rights rights, EncryptResult result, boolean force, Informer informer)
 	{
+		result.FailedFiles=new Vector();
 		File[] fromFiles = fromDir.listFiles();
 
 		for (File fromFile : fromFiles)
@@ -361,6 +365,7 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 				{
 					case EncryptResult.FAIL: 
 						result.NumberOfFail++; 
+						result.FailedFiles.addElement(fromFile.getName());
 						break;
 					case EncryptResult.NEW_ENCRYPT: 
 						result.NumberOfNewEncrypt++; 

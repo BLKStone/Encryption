@@ -45,23 +45,13 @@ public class DataSourceImpl implements DataSource
 	}
 
 	@Override
-	public Connection getConnection()
+	public Connection getConnection() throws SQLException
 	{
 		if (!isInited)
 		{
 			init();
 		}
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(url, user, password);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Connection error");
-		}
-		if (conn == null){
-			System.out.println("Connection error");
-		}
-		
-		return conn;
+
+		return DriverManager.getConnection(url, user, password);
 	}
 }

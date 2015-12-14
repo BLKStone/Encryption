@@ -329,9 +329,7 @@ public class ResourceDaoImpl implements ResourceDao
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e){
-			e.printStackTrace();
-		}
+		} 
 		finally
 		{
 			if (null != conn)

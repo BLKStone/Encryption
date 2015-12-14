@@ -31,16 +31,12 @@
 <%@ page
 	import="org.apache.commons.logging.Log,org.apache.commons.logging.LogFactory"%>
 <%
-	Log logger = LogFactory.getLog("日志");
-	out.println(request.getContextPath()+"/logs/log");
-	out.println(this.getServletContext().getRealPath("/") + "logs" + File.separator + "log");
+	String logStr = "";
+	Log logger = LogFactory.getLog("日志管理");
 	try {
-		
-		String path = request.getContextPath();
-		String LogStr;
-		File file=new File(request.getContextPath()+"/logs/log");
+		String path = this.getServletContext().getRealPath("/") + "logs" + File.separator + "log";
+		File file=new File(path); 
 		if(!file.exists()||file.isDirectory()){
-			System.out.println("ok");
 			throw new FileNotFoundException();
 		}
 		BufferedReader br=new BufferedReader(new FileReader(file));
@@ -52,13 +48,12 @@
 			temp=br.readLine();
 		}
 		br.close();
-		LogStr = sb.toString();
-		out.println(LogStr);
+		logStr = sb.toString();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		logger.error("日志文件未找到");
 		e.printStackTrace();
-		out.println("日志文件未找到");
+		logStr = "日志文件未找到";
 	}		
 %>
 </head>
@@ -72,9 +67,7 @@
 			</div>
 		</div>
 		<div class="l-panel-content">
-			<textarea
-				style="width: 100%; height: 90%; border: 1px; outline: none;">
-				scfasdf
+			<textarea style="width: 100%; height: 90%; border: 1px; outline: none;"><%=logStr %>
 			</textarea>
 		</div>
 	</div>

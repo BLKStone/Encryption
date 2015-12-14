@@ -21,7 +21,7 @@
 
 	var data = {
 		Rows : [ {
-			userName : "admin",
+			name : "admin",
 			password : "admin"
 		}, {
 			userName : "zhang",
@@ -121,65 +121,10 @@
 					var userName = $("#userName").val();
 					var password = $("#password").val();
 					if (isAdd) {
-						xh = row["xh"];
-						$.ajax({
-							type : 'POST',
-							url : "addjiesuan!addjiesuanMET.action",
-							data : {
-								"xh" : xh,
-								"xstc" : xstc
-							},
-							datatype : "json",
-
-							beforeSend : function() {
-								common.loading = true;
-								common.showLoading("正在录入...");
-							},
-							complete : function() {
-								common.loading = false;
-								common.hideLoading();
-							},
-
-							success : function(results) {
-								show();
-								common.tip('录入成功！');
-
-							}
-						});
-
+						common.tip('录入成功！');
 					} else {
-						xh = row["xh"];
-						$.ajax({
-							type : 'POST',
-							url : "editjiesuan!editjiesuanMET.action",
-							data : {
-								"xh" : xh,
-								"xstc" : xstc,
-								"cwsh" : cwsh,
-								"kp" : kp,
-								"xcsktz" : xcsktz,
-								"kptt" : kptt
-							},
-							datatype : "json",
-
-							beforeSend : function() {
-								common.loading = true;
-								common.showLoading("正在修改...");
-							},
-							complete : function() {
-								common.loading = false;
-								common.hideLoading();
-							},
-
-							success : function(results) {
-								show();
-								common.tip('修改成功！');
-
-							}
-						});
-
+						common.tip('修改成功！');
 					}
-
 					dialog.hide();
 				}
 			}, {
@@ -193,6 +138,7 @@
 	}
 	var fileTable = null;
 	$(function() {
+		refreshTable();
 		fileTable = $("#fileTable").ligerGrid({
 			columns : [ {
 				display : '用户名',
@@ -252,6 +198,12 @@
 			})
 		});
 	});
+	// refresh table function
+	function refreshTable(){
+		
+		
+		console.log(data);
+	}
 	//search function
 	function f_search() {
 		fileTable.options.data = $.extend(true, {}, data);
@@ -267,6 +219,70 @@
 		return clause;
 	}
 </script>
+<%@ page import="java.io.*,java.util.*"%>
+<%@ page import="org.apache.commons.logging.Log,org.apache.commons.logging.LogFactory"%>
+<%@ page import="cn.com.sgcc.db.*"%>
+<%@ page import="cn.com.sgcc.dao.*"%>
+<%@ page import="cn.com.sgcc.vo.*"%>
+<%! Log logger = LogFactory.getLog("用户管理"); %>
+<%! DatabaseLayer databaseLayer;%>
+<% out.println(databaseLayer.getResourceDao()); %>
+<%! Object[] refreshList()
+{
+	Object[] users = null;
+	try
+	{
+		users = databaseLayer.getUserDao().selectAll().toArray();
+	}
+	catch (DaoException e)
+	{
+		logger.error("", e);
+	}
+	return users;
+}
+%>
+<%! void delete(User user)
+{
+	try
+	{
+		databaseLayer.getUserDao().delete(user.getId());
+	}
+	catch (DaoException e)
+	{
+		logger.error("", e);
+	}
+}
+%>
+<%! void add(String u, String p)
+{
+	User user = new User();
+	user.setName(u);
+	user.setPassword(p);
+	try
+	{
+		databaseLayer.getUserDao().insert(user);
+	}
+	catch (DaoException e)
+	{
+		logger.error("", e);
+	}
+}
+%>
+<%! void edit(String u, String p)
+{
+	User user = new User();
+	user.setName(u);
+	user.setPassword(p);
+	try
+	{
+		databaseLayer.getUserDao().update(user);
+	}
+	catch (DaoException e)
+	{
+		logger.error("", e);
+	}
+}
+%>
 <style>
 .my-button {
 	background: #E0EDFF url(../images/controls/button-bg.gif) repeat-x
