@@ -9,11 +9,14 @@ import cn.com.sgcc.ds.*;
 
 public class UserDaoImpl implements UserDao
 {
-	private DataSource dataSource;
+	public DataSource dataSource;
 
 	public void setDataSource(DataSource dataSource)
 	{
 		this.dataSource = dataSource;
+	}
+	public UserDaoImpl(){
+		dataSource = new DataSourceImpl();
 	}
 	
 	// may return null

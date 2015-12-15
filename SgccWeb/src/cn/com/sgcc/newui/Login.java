@@ -21,6 +21,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import cn.com.sgcc.dao.DaoException;
 import cn.com.sgcc.db.DatabaseLayer;
+import cn.com.sgcc.ui.LoginPanel;
+import cn.com.sgcc.ui.MainFrame;
 import cn.com.sgcc.vo.User;
 
 import com.mysql.jdbc.log.Log;

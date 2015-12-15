@@ -8,7 +8,12 @@ public class DataSourceImpl implements DataSource
 	private String url;
 	private String user;
 	private String password;
-
+	public DataSourceImpl(){
+		setDriver("com.mysql.jdbc.Driver");
+		setUrl("jdbc:mysql://localhost/ac");
+		setUser("root");
+		setPassword("123123");
+	}
 	private boolean isInited = false;
 
 	public void setDriver(String driver)

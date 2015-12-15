@@ -7,7 +7,11 @@ public class DatabaseLayer
 	private UserDao userDao;
 	private ResourceDao resourceDao;
 	private IpRangeDao ipRangeDao;
-
+	public DatabaseLayer(){
+		userDao = new UserDaoImpl();
+		ipRangeDao = new IpRangeDaoImpl();
+		resourceDao = new ResourceDaoImpl();
+	}
 	public UserDao getUserDao()
 	{
 		return userDao;

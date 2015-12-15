@@ -138,6 +138,27 @@
 	}
 	var fileTable = null;
 	$(function() {
+		 $.ajax({
+             type: 'POST',
+             url: "jiesuan!jiesuanMET.action",
+           data: {"cong":"cong","dao":"dao"},
+            datatype: "json",
+               cache: false,
+
+
+             beforeSend: function () {
+                 common.loading = true;
+                 common.showLoading("数据获取中...");
+             },
+             complete: function () {
+                 common.loading = false;
+                 common.hideLoading();
+             },
+             success: function (json1) {
+             
+       
+             }
+ });
 		refreshTable();
 		fileTable = $("#fileTable").ligerGrid({
 			columns : [ {
@@ -198,12 +219,7 @@
 			})
 		});
 	});
-	// refresh table function
-	function refreshTable(){
-		
-		
-		console.log(data);
-	}
+
 	//search function
 	function f_search() {
 		fileTable.options.data = $.extend(true, {}, data);
@@ -218,29 +234,22 @@
 		};
 		return clause;
 	}
+	// refresh table function
+	function refreshTable(){
+	}
 </script>
 <%@ page import="java.io.*,java.util.*"%>
 <%@ page import="org.apache.commons.logging.Log,org.apache.commons.logging.LogFactory"%>
 <%@ page import="cn.com.sgcc.db.*"%>
 <%@ page import="cn.com.sgcc.dao.*"%>
 <%@ page import="cn.com.sgcc.vo.*"%>
+<%@ page import="cn.com.sgcc.ui.*"%>
+<%! Object[] data = null; %>
 <%! Log logger = LogFactory.getLog("用户管理"); %>
-<%! DatabaseLayer databaseLayer;%>
-<% out.println(databaseLayer.getResourceDao()); %>
-<%! Object[] refreshList()
-{
-	Object[] users = null;
-	try
-	{
-		users = databaseLayer.getUserDao().selectAll().toArray();
-	}
-	catch (DaoException e)
-	{
-		logger.error("", e);
-	}
-	return users;
-}
-%>
+<%! DatabaseLayer databaseLayer = new DatabaseLayer();%>
+<%! UserDaoImpl userDaoImpl= new UserDaoImpl();%>
+<%! UserManagePanel userManagePanel= new UserManagePanel();%>
+<%-- <%  System.out.println(userDaoImpl.selectAll());%> --%>
 <%! void delete(User user)
 {
 	try

@@ -70,13 +70,13 @@
 	</bean>
 
 	<!-- ui -->
-<!-- 	<bean id="EncryptPanelBean" class="cn.com.sgcc.ui.BatchEncryptPanel">
+	<bean id="EncryptPanelBean" class="cn.com.sgcc.ui.BatchEncryptPanel">
 		<property name="cipher" ref="CipherBean"/>
-	</bean> -->
-<!-- 	<bean id="IpConfigPanelBean" class="cn.com.sgcc.ui.IpRangeConfigPanel">
+	</bean>
+	<bean id="IpConfigPanelBean" class="cn.com.sgcc.ui.IpRangeConfigPanel">
 		<property name="databaseLayer" ref="DatabaseLayerBean"/>
-	</bean> -->
-<!-- 	<bean id="RightsConfigPanelBean" class="cn.com.sgcc.ui.RightsConfigPanel">
+	</bean>
+	<bean id="RightsConfigPanelBean" class="cn.com.sgcc.ui.RightsConfigPanel">
 		<property name="databaseLayer" ref="DatabaseLayerBean"/>
 	</bean>
 	<bean id="LoginPanelBean" class="cn.com.sgcc.ui.LoginPanel">
@@ -92,13 +92,13 @@
 	</bean>
 	<bean id="FileTransmissionPanelBean" class="cn.com.sgcc.ui.FileTransmissionPanel">
 		<property name="cipher" ref="CipherBean"/>
-	</bean> -->
-<!-- 	<bean id="MainFrameBean" class="cn.com.sgcc.ui.MainFrame">
+	</bean>
+	<bean id="MainFrameBean" class="cn.com.sgcc.ui.MainFrame">
 		<property name="encryptPanel" ref="EncryptPanelBean"/>
 		<property name="ipConfigPanel" ref="IpConfigPanelBean"/>
 		<property name="rightsConfigPanel" ref="RightsConfigPanelBean"/>
 		<property name="userManagePanel" ref="UserManagePanelBean"/>
 		<property name="logPanel" ref="LogPanelBean"/>
-	</bean> -->
+	</bean>
 	
 </beans>
