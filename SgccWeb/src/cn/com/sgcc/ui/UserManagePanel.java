@@ -20,7 +20,7 @@ public class UserManagePanel extends JPanel
 
 	private static Log logger = LogFactory.getLog(UserManagePanel.class);
 
-	private DatabaseLayer databaseLayer;
+	private DatabaseLayer databaseLayer = new DatabaseLayer();
 
 	private JList list = new JList();
 	private JScrollPane scroll;
@@ -34,11 +34,6 @@ public class UserManagePanel extends JPanel
 	private JButton confirmButton;
 
 	private int editState = EDIT_STATE_NONE;
-
-	public void setDatabaseLayer(DatabaseLayer databaseLayer)
-	{
-		this.databaseLayer = databaseLayer;
-	}
     
 	public UserManagePanel()
 	{

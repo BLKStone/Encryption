@@ -18,7 +18,6 @@
 		<property name="user" value="root"/>
 		<!--<property name="password" value="zmxncbv"/>  -->
 		<property name="password" value="123123"/>
-		
 	</bean>
 
 	<!-- dao -->
@@ -69,8 +68,11 @@
 		<property name="acUrl" value=""/>
 	</bean>
 
+	<bean id="UserActionBean" class="cn.com.sgcc.action.UserAction">
+		<property name="databaseLayer" ref="DatabaseLayerBean"/>
+	</bean>
 	<!-- ui -->
-	<bean id="EncryptPanelBean" class="cn.com.sgcc.ui.BatchEncryptPanel">
+<!-- 	<bean id="EncryptPanelBean" class="cn.com.sgcc.ui.BatchEncryptPanel">
 		<property name="cipher" ref="CipherBean"/>
 	</bean>
 	<bean id="IpConfigPanelBean" class="cn.com.sgcc.ui.IpRangeConfigPanel">
@@ -99,6 +101,6 @@
 		<property name="rightsConfigPanel" ref="RightsConfigPanelBean"/>
 		<property name="userManagePanel" ref="UserManagePanelBean"/>
 		<property name="logPanel" ref="LogPanelBean"/>
-	</bean>
+	</bean> -->
 	
 </beans>

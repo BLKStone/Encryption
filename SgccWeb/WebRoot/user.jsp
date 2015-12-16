@@ -18,17 +18,7 @@
 <script type="text/javascript" src="js/json2.js"></script>
 <script type="text/javascript">
 	var rootpath = "Styles/skins/Aqua/icons/";
-
-	var data = {
-		Rows : [ {
-			name : "admin",
-			password : "admin"
-		}, {
-			userName : "zhang",
-			password : "zhang"
-		} ]
-	};
-
+	var data = null;
 	function listToolbar() {
 		var items = [];
 		items.push({
@@ -55,8 +45,8 @@
 	function grid_add() {
 		isAdd = true;
 		var row = {
-				userName : null,
-				password: null
+			userName : null,
+			password : null
 		};
 		showDetail(row);
 	}
@@ -77,6 +67,27 @@
 			$.ligerDialog.warn('请选择要操作的行！')
 			return;
 		}
+		$.ajax({
+			type : 'POST',
+			url : "user!userDeleteMET.action",
+			data : {
+				"id":row.id
+			},
+			datatype : "json",
+			cache : false,
+			beforeSend : function() {
+				common.loading = true;
+				common.showLoading("数据获取中...");
+			},
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function(json1) {
+				refreshTable();
+				common.tip('删除成功！');
+			}
+		});
 	}
 
 	function showDetail(row, action) {
@@ -86,7 +97,7 @@
 			space : 20,
 			fields : [ {
 				display : "用户名",
-				name : "userName",
+				name : "name",
 				newline : true,
 				type : "text",
 				validate : {
@@ -104,7 +115,7 @@
 		});
 		var title1;
 		if (isAdd) {
-			title1 = '增加用户';	
+			title1 = '增加用户';
 		} else {
 			title1 = '修改用户';
 		}
@@ -115,15 +126,58 @@
 			width : 400,
 			height : 120,
 			isResize : false,
-			buttons : [{
+			buttons : [ {
 				text : '确定',
 				onclick : function(item, dialog) {
-					var userName = $("#userName").val();
+					var name = $("#name").val();
 					var password = $("#password").val();
 					if (isAdd) {
-						common.tip('录入成功！');
+						$.ajax({
+							type : 'POST',
+							url : "user!userAddMET.action",
+							data : {
+								"name" : name,
+								"password" : password
+							},
+							datatype : "json",
+							cache : false,
+							beforeSend : function() {
+								common.loading = true;
+								common.showLoading("数据获取中...");
+							},
+							complete : function() {
+								common.loading = false;
+								common.hideLoading();
+							},
+							success : function(json1) {
+								refreshTable();
+								common.tip('录入成功！');
+							}
+						});
 					} else {
-						common.tip('修改成功！');
+						$.ajax({
+							type : 'POST',
+							url : "user!userEditMET.action",
+							data : {
+								"id": row.id,
+								"name" : name,
+								"password" : password
+							},
+							datatype : "json",
+							cache : false,
+							beforeSend : function() {
+								common.loading = true;
+								common.showLoading("数据获取中...");
+							},
+							complete : function() {
+								common.loading = false;
+								common.hideLoading();
+							},
+							success : function(json1) {
+								refreshTable();
+								common.tip('修改成功！');
+							}
+						});
 					}
 					dialog.hide();
 				}
@@ -138,85 +192,11 @@
 	}
 	var fileTable = null;
 	$(function() {
-		 $.ajax({
-             type: 'POST',
-             url: "jiesuan!jiesuanMET.action",
-           data: {"cong":"cong","dao":"dao"},
-            datatype: "json",
-               cache: false,
-
-
-             beforeSend: function () {
-                 common.loading = true;
-                 common.showLoading("数据获取中...");
-             },
-             complete: function () {
-                 common.loading = false;
-                 common.hideLoading();
-             },
-             success: function (json1) {
-             
-       
-             }
- });
 		refreshTable();
-		fileTable = $("#fileTable").ligerGrid({
-			columns : [ {
-				display : '用户名',
-				name : 'userName',
-				width : '50%'
-			}, {
-				display : '密码',
-				name : 'password',
-				width : '50%'
-			} ],
-			toolbar : listToolbar(),
-			pageSize : 10,
-			checkbox : false,
-			rownumbers : false,
-			where : f_getWhere(),
-			data : $.extend(true, {}, data),
-			width : '68%',
-			height : '90%'
-		});
 	});
 
 	$(document).ready(function() {
 		$("#bb").click(function() {
-			var from = $("#from").val();
-			var to = $("#to").val();
-			if (from == '') {
-				alert("请选择源路径!");
-				return;
-			}
-			;
-			if (to == '') {
-				alert("请选择目标路径!");
-				return;
-			}
-			;
-
-			$.ajax({
-				type : 'POST',
-				url : "ribao!ribaoMET.action",
-				data : {
-					"cong" : cong,
-					"dao" : dao
-				},
-				datatype : "json",
-				cache : false,
-				beforeSend : function() {
-					common.loading = true;
-					common.showLoading("数据获取中...");
-				},
-				complete : function() {
-					common.loading = false;
-					common.hideLoading();
-				},
-				success : function(json1) {
-					var json = JSON2.parse(json1);
-				}
-			})
 		});
 	});
 
@@ -230,68 +210,52 @@
 			return null;
 		var clause = function(rowdata, rowindex) {
 			var key = $("#txtUserName").val();
-			return rowdata.userName.indexOf(key) > -1;
+			return rowdata.name.indexOf(key) > -1;
 		};
 		return clause;
 	}
 	// refresh table function
-	function refreshTable(){
+	function refreshTable() {
+		$.ajax({
+			type : 'POST',
+			url : "user!userListMET.action",
+			data : {},
+			datatype : "json",
+			cache : false,
+			beforeSend : function() {
+				common.loading = true;
+				common.showLoading("数据获取中...");
+			},
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function(json1) {
+				data = JSON2.parse(json1);
+				fileTable = $("#fileTable").ligerGrid({
+					columns : [ {
+						display : '用户名',
+						name : 'name',
+						width : '50%'
+					}, {
+						display : '密码',
+						name : 'password',
+						width : '50%'
+					} ],
+					toolbar : listToolbar(),
+					pageSize : 10,
+					checkbox : false,
+					rownumbers : false,
+					where : f_getWhere(),
+					data : $.extend(true, {}, data),
+					width : '68%',
+					height : '90%'
+				});
+			}
+		});
+
 	}
 </script>
-<%@ page import="java.io.*,java.util.*"%>
-<%@ page import="org.apache.commons.logging.Log,org.apache.commons.logging.LogFactory"%>
-<%@ page import="cn.com.sgcc.db.*"%>
-<%@ page import="cn.com.sgcc.dao.*"%>
-<%@ page import="cn.com.sgcc.vo.*"%>
-<%@ page import="cn.com.sgcc.ui.*"%>
-<%! Object[] data = null; %>
-<%! Log logger = LogFactory.getLog("用户管理"); %>
-<%! DatabaseLayer databaseLayer = new DatabaseLayer();%>
-<%! UserDaoImpl userDaoImpl= new UserDaoImpl();%>
-<%! UserManagePanel userManagePanel= new UserManagePanel();%>
-<%-- <%  System.out.println(userDaoImpl.selectAll());%> --%>
-<%! void delete(User user)
-{
-	try
-	{
-		databaseLayer.getUserDao().delete(user.getId());
-	}
-	catch (DaoException e)
-	{
-		logger.error("", e);
-	}
-}
-%>
-<%! void add(String u, String p)
-{
-	User user = new User();
-	user.setName(u);
-	user.setPassword(p);
-	try
-	{
-		databaseLayer.getUserDao().insert(user);
-	}
-	catch (DaoException e)
-	{
-		logger.error("", e);
-	}
-}
-%>
-<%! void edit(String u, String p)
-{
-	User user = new User();
-	user.setName(u);
-	user.setPassword(p);
-	try
-	{
-		databaseLayer.getUserDao().update(user);
-	}
-	catch (DaoException e)
-	{
-		logger.error("", e);
-	}
-}
-%>
 <style>
 .my-button {
 	background: #E0EDFF url(../images/controls/button-bg.gif) repeat-x
@@ -308,7 +272,6 @@
 		<button class="my-button" id="btnSearch" onclick="f_search()"
 			style="dispaly: inline">搜索</button>
 	</div>
-	<!-- <div id="toptoolbar"></div> -->
 	<div id="fileTable"></div>
 	<div id="userForm"></div>
 </body>

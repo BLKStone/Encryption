@@ -15,6 +15,9 @@ public class IpRangeDaoImpl implements IpRangeDao
 	{
 		this.dataSource = dataSource;
 	}
+	public IpRangeDaoImpl(){
+		dataSource = new DataSourceImpl();
+	}
 	
 	// may return null
 	@Override

@@ -20,37 +20,7 @@
 	var rootpath = "Styles/skins/Aqua/icons/";
 
 	var table = null;
-	$(function() {
-		table = $("#table").ligerGrid({
-			columns : [ {
-				display : '起始IP',
-				name : 'fromIp',
-				width : '50%'
-			}, {
-				display : '结束IP',
-				name : 'toIp',
-				width : '50%'
-			} ],
-			toolbar : listToolbar(),
-			pageSize : 10,
-			checkbox : false,
-			rownumbers : false,
-			where : f_getWhere(),
-			data : $.extend(true, {}, data),
-			width : '68%',
-			height : '90%'
-		});
-	});
-
-	var data = {
-		Rows : [ {
-			fromIp : "132.133.1.3",
-			toIp : "132.133.2.5"
-		}, {
-			fromIp : "132.133.1.6",
-			toIp : "132.133.2.99"
-		} ]
-	};
+	var data = null;
 
 	function listToolbar() {
 		var items = [];
@@ -78,8 +48,8 @@
 	function grid_add() {
 		isAdd = true;
 		var row = {
-			fromIp : null,
-			toIp : null
+			beginIp : null,
+			endIp : null
 		};
 		showDetail(row);
 	}
@@ -100,6 +70,27 @@
 			$.ligerDialog.warn('请选择要操作的行！')
 			return;
 		}
+		$.ajax({
+			type : 'POST',
+			url : "ipRange!ipRangeDeleteMET.action",
+			data : {
+				"id":row.id
+			},
+			datatype : "json",
+			cache : false,
+			beforeSend : function() {
+				common.loading = true;
+				common.showLoading("数据获取中...");
+			},
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function(json1) {
+				refreshTable();
+				common.tip('删除成功！');
+			}
+		});
 	}
 
 	function showDetail(row, action) {
@@ -109,7 +100,7 @@
 			space : 20,
 			fields : [ {
 				display : "起始IP",
-				name : "fromIp",
+				name : "beginIp",
 				newline : true,
 				type : "text",
 				validate : {
@@ -117,7 +108,7 @@
 				}
 			}, {
 				display : "结束IP",
-				name : "toIp",
+				name : "endIp",
 				newline : true,
 				type : "text",
 				validate : {
@@ -141,68 +132,56 @@
 			buttons : [ {
 				text : '确定',
 				onclick : function(item, dialog) {
-					var fromIp = $("#fromIp").val();
-					var toIp = $("#toIp").val();
+					var beginIp = $("#beginIp").val();
+					var endIp = $("#endIp").val();
 					if (isAdd) {
-						xh = row["xh"];
 						$.ajax({
 							type : 'POST',
-							url : "addjiesuan!addjiesuanMET.action",
+							url : "ipRange!ipRangeAddMET.action",
 							data : {
-								"xh" : xh,
-								"xstc" : xstc
+								"beginIp" : beginIp,
+								"endIp" : endIp
 							},
 							datatype : "json",
-
+							cache : false,
 							beforeSend : function() {
 								common.loading = true;
-								common.showLoading("正在录入...");
+								common.showLoading("数据获取中...");
 							},
 							complete : function() {
 								common.loading = false;
 								common.hideLoading();
 							},
-
-							success : function(results) {
-								show();
+							success : function(json1) {
+								refreshTable();
 								common.tip('录入成功！');
-
 							}
 						});
-
 					} else {
-						xh = row["xh"];
 						$.ajax({
 							type : 'POST',
-							url : "editjiesuan!editjiesuanMET.action",
+							url : "ipRange!ipRangeEditMET.action",
 							data : {
-								"xh" : xh,
-								"xstc" : xstc,
-								"cwsh" : cwsh,
-								"kp" : kp,
-								"xcsktz" : xcsktz,
-								"kptt" : kptt
+								"id": row.id,
+								"beginIp" : beginIp,
+								"endIp" : endIp
 							},
 							datatype : "json",
-
+							cache : false,
 							beforeSend : function() {
 								common.loading = true;
-								common.showLoading("正在修改...");
+								common.showLoading("数据获取中...");
 							},
 							complete : function() {
 								common.loading = false;
 								common.hideLoading();
 							},
-
-							success : function(results) {
-								show();
+							success : function(json1) {
+								refreshTable();
 								common.tip('修改成功！');
-
 							}
 						});
-
 					}
-
 					dialog.hide();
 				}
 			}, {
@@ -214,45 +193,6 @@
 		});
 
 	}
-
-	$(document).ready(function() {
-		$("#bb").click(function() {
-			var from = $("#from").val();
-			var to = $("#to").val();
-			if (from == '') {
-				alert("请选择源路径!");
-				return;
-			}
-			;
-			if (to == '') {
-				alert("请选择目标路径!");
-				return;
-			}
-			;
-
-			$.ajax({
-				type : 'POST',
-				url : "ribao!ribaoMET.action",
-				data : {
-					"cong" : cong,
-					"dao" : dao
-				},
-				datatype : "json",
-				cache : false,
-				beforeSend : function() {
-					common.loading = true;
-					common.showLoading("数据获取中...");
-				},
-				complete : function() {
-					common.loading = false;
-					common.hideLoading();
-				},
-				success : function(json1) {
-					var json = JSON2.parse(json1);
-				}
-			})
-		});
-	});
 	//search function
 	function f_search() {
 		table.options.data = $.extend(true, {}, data);
@@ -262,10 +202,54 @@
 		if (!table)
 			return null;
 		var clause = function(rowdata, rowindex) {
-			var key = $("#txtfromIp").val();
-			return rowdata.fromIp.indexOf(key) > -1;
+			var key = $("#txtbeginIp").val();
+			return rowdata.beginIp.indexOf(key) > -1;
 		};
 		return clause;
+	}
+	$(function() {
+		refreshTable();
+	});
+	// refresh table function
+	function refreshTable() {
+		$.ajax({
+			type : 'POST',
+			url : "ipRange!ipRangeListMET.action",
+			data : {},
+			datatype : "json",
+			cache : false,
+			beforeSend : function() {
+				common.loading = true;
+				common.showLoading("数据获取中...");
+			},
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function(json1) {
+				data = JSON2.parse(json1);
+				table = $("#table").ligerGrid({
+					columns : [ {
+						display : '起始IP',
+						name : 'beginIp',
+						width : '50%'
+					}, {
+						display : '结束IP',
+						name : 'endIp',
+						width : '50%'
+					} ],
+					toolbar : listToolbar(),
+					pageSize : 10,
+					checkbox : false,
+					rownumbers : false,
+					where : f_getWhere(),
+					data : $.extend(true, {}, data),
+					width : '68%',
+					height : '90%'
+				});
+			}
+		});
+
 	}
 </script>
 <style>
@@ -313,7 +297,7 @@
 	</div>
 	<div id="searchbar" style="margin: 20px 0 5px 10px">
 		<label style="width: 65px; display: inline-block">起始IP：</label> 
-		<input id="txtfromIp" type="text" class="l-text">
+		<input id="txtbeginIp" type="text" class="l-text">
 		<button class="my-button" id="btnSearch" onclick="f_search()"
 			style="dispaly: inline">搜索</button>
 	</div>
