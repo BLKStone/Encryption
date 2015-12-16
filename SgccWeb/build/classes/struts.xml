@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<include file="struts-default.xml" />
+	<constant name="struts.objectFactory" value="spring" />
+
+
+	<package name="default" extends="struts-default">
+
+		<!-- 配置拦截器 -->
+		<!-- <interceptors> <interceptor name="authrity" class="com.login.intecept.AuthrityInterceptor" 
+			/> -->
+
+		<!-- 自定义拦截器 -->
+		<!-- <interceptor-stack name="myInterceptor"> <interceptor-ref name="defaultStack" 
+			/> <interceptor-ref name="authrity" /> </interceptor-stack> </interceptors> -->
+
+		<!-- 设置默认拦截器 -->
+		<!-- <default-interceptor-ref name="myInterceptor" /> -->
+
+		<!-- 设置全局的返回结果 -->
+		<!-- <global-results> <result name="login" type="redirectAction">login</result> 
+			<result name="error">/error.jsp</result> </global-results> <action name="login" 
+			class="com.vstsoft.action.LoginAction"> <result name="success">/index.jsp</result> 
+			<result name="input">/login.jsp</result> <interceptor-ref name="defaultStack" 
+			/> </action> <action name="logOut" class="com.vstsoft.action.LoginAction" 
+			method="logOut"> <result name="success">/login.jsp</result> <interceptor-ref 
+			name="defaultStack" /> </action> -->
+
+	</package>
+
+
+	<package name="json" extends="json-default">
+
+		<action name="user" class="cn.com.sgcc.action.UserAction"
+			method="userListMET">
+			<result type="json"></result>
+		</action>
+		<action name="user" class="cn.com.sgcc.action.UserAction"
+			method="userAddMET">
+			<result type="json"></result>
+		</action>
+		<action name="user" class="cn.com.sgcc.action.UserAction"
+			method="userEditMET">
+			<result type="json"></result>
+		</action>
+		<action name="user" class="cn.com.sgcc.action.UserAction"
+			method="userDeleteMET">
+			<result type="json"></result>
+		</action>
+
+		<action name="ipRange" class="cn.com.sgcc.action.IpRangeAction"
+			method="ipRangeListMET">
+			<result type="json"></result>
+		</action>
+		<action name="ipRange" class="cn.com.sgcc.action.IpRangeAction"
+			method="ipRangeAddMET">
+			<result type="json"></result>
+		</action>
+		<action name="ipRange" class="cn.com.sgcc.action.IpRangeAction"
+			method="ipRangeEditMET">
+			<result type="json"></result>
+		</action>
+		<action name="ipRange" class="cn.com.sgcc.action.IpRangeAction"
+			method="ipRangeDeleteMET">
+			<result type="json"></result>
+		</action>
+	</package>
+
+</struts>

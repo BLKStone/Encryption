@@ -15,6 +15,9 @@ public class IpRangeDaoImpl implements IpRangeDao
 	{
 		this.dataSource = dataSource;
 	}
+	public IpRangeDaoImpl(){
+		dataSource = new DataSourceImpl();
+	}
 	
 	// may return null
 	@Override
@@ -221,7 +224,6 @@ public class IpRangeDaoImpl implements IpRangeDao
 			conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, ip);
-			
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next())
 			{
