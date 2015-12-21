@@ -10,31 +10,37 @@
 
 	<package name="default" extends="struts-default">
 
-		<!-- 配置拦截器 -->
 		<!-- <interceptors> <interceptor name="authrity" class="com.login.intecept.AuthrityInterceptor" 
-			/> -->
-
-		<!-- 自定义拦截器 -->
-		<!-- <interceptor-stack name="myInterceptor"> <interceptor-ref name="defaultStack" 
-			/> <interceptor-ref name="authrity" /> </interceptor-stack> </interceptors> -->
-
-		<!-- 设置默认拦截器 -->
-		<!-- <default-interceptor-ref name="myInterceptor" /> -->
+			/> <interceptor-stack name="myInterceptor"> <interceptor-ref name="defaultStack" 
+			/> <interceptor-ref name="authrity" /> </interceptor-stack> </interceptors> 
+			<default-interceptor-ref name="myInterceptor" /> -->
 
 		<!-- 设置全局的返回结果 -->
-		<!-- <global-results> <result name="login" type="redirectAction">login</result> 
-			<result name="error">/error.jsp</result> </global-results> <action name="login" 
-			class="com.vstsoft.action.LoginAction"> <result name="success">/index.jsp</result> 
-			<result name="input">/login.jsp</result> <interceptor-ref name="defaultStack" 
-			/> </action> <action name="logOut" class="com.vstsoft.action.LoginAction" 
-			method="logOut"> <result name="success">/login.jsp</result> <interceptor-ref 
-			name="defaultStack" /> </action> -->
+		<global-results>
+			<result name="login" type="redirectAction">login</result>
+			<result name="error">/error.jsp</result>
+		</global-results>
+
+		<action name="login" class="cn.com.sgcc.action.LoginAction"
+			method="logIn">
+
+		</action>
+
+		<action name="logOut" class="cn.com.sgcc.action.LoginAction"
+			method="logOut">
+			<result name="success">/login.jsp</result>
+			<interceptor-ref name="defaultStack" />
+		</action>
 
 	</package>
 
 
 	<package name="json" extends="json-default">
 
+		<action name="login" class="cn.com.sgcc.action.LoginAction"
+			method="logIn">
+			<result type="json"></result>
+		</action>
 		<action name="user" class="cn.com.sgcc.action.UserAction"
 			method="userListMET">
 			<result type="json"></result>
@@ -49,6 +55,10 @@
 		</action>
 		<action name="user" class="cn.com.sgcc.action.UserAction"
 			method="userDeleteMET">
+			<result type="json"></result>
+		</action>
+		<action name="user" class="cn.com.sgcc.action.UserAction"
+			method="userLoginMET">
 			<result type="json"></result>
 		</action>
 
@@ -66,6 +76,33 @@
 		</action>
 		<action name="ipRange" class="cn.com.sgcc.action.IpRangeAction"
 			method="ipRangeDeleteMET">
+			<result type="json"></result>
+		</action>
+
+		<action name="encryption" class="cn.com.sgcc.action.EncryptionAction"
+			method="encryptionListMET">
+			<result type="json"></result>
+		</action>
+		<action name="encryption" class="cn.com.sgcc.action.EncryptionAction"
+			method="encryptionMET">
+			<result type="json"></result>
+		</action>
+
+		<action name="transfer" class="cn.com.sgcc.action.TransferAction"
+			method="transferListMET">
+			<result type="json"></result>
+		</action>
+		<action name="transfer" class="cn.com.sgcc.action.TransferAction"
+			method="downloadMET">
+			<result type="json"></result>
+		</action>
+
+		<action name="rights" class="cn.com.sgcc.action.RightsAction"
+			method="rightsListMET">
+			<result type="json"></result>
+		</action>
+		<action name="rights" class="cn.com.sgcc.action.RightsAction"
+			method="rightsAddMET">
 			<result type="json"></result>
 		</action>
 	</package>

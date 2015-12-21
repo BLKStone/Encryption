@@ -1,7 +1,0 @@
-[2015-06-02 17:39:12,380] [INFO] - 加密客户端启动成功
-[2015-06-02 17:39:42,673] [INFO] - admin登录成功！
-[2015-06-02 17:40:18,991] [INFO] - [batch encrypt request]
-  ------FROM: C:\Users\zhanghao\Desktop\课件
-  ------  TO: C:\Users\zhanghao\Desktop\课件
-[2015-06-02 17:40:19,092] [INFO] - [old-encrypt] C:\Users\zhanghao\Desktop\课件\lecture 01_1502.pdf
-[2015-06-02 17:40:19,095] [INFO] - [batch encrypt result] all[1] fail[0] new-encrypt[0] old-encrypt[1] re-encrypt[0]

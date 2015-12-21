@@ -21,18 +21,18 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 {
 	private static Log logger = LogFactory.getLog(CipherImpl.class);
 
-	private String cryptoAlgorithm;
-	private String cryptoMode;
-	private String cryptoPadding;
-	private int cryptoKeySize;
-	private int cryptoIvSize;
+	private static  String cryptoAlgorithm = "AES";
+	private static  String cryptoMode = "CBC";
+	private static  String cryptoPadding = "ISO10126Padding";
+	private static  int cryptoKeySize = 128;
+	private static  int cryptoIvSize = 128;
 
-	private String sourceSuffix;
-	private String destinationSuffix;
+	private static  String sourceSuffix="pdf";
+	private static  String destinationSuffix = ".gwbz";
 
-	private Packager packager;
+	private Packager packager = new ZipPackager();
 
-	private DatabaseLayer databaseLayer;
+	private DatabaseLayer databaseLayer = new DatabaseLayer();
 
 	public void setCryptoAlgorithm(String cryptoAlgorithm)
 	{
@@ -230,61 +230,42 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 		return currentStatus;
 	}
 
-	public EncryptResult encryptDir(File fromDir, File toDir, Rights rights, boolean force, Informer informer)
+	public EncryptResult encryptDir(File fromDir, File toDir, Rights rights, boolean force)
 	{
+		System.out.println("encryptDir" + fromDir);
 		if (!fromDir.exists())
 		{
 			logger.error(new StringBuilder().append(fromDir.getPath()).append(" not exists").toString());
-			if (null != informer)
-			{
-				informer.informError(new StringBuilder().append(fromDir.getPath()).append(" 不存在").toString());
-			}
 			return null;
 		}
 		if (!fromDir.isDirectory())
 		{
 			logger.error(new StringBuilder().append(fromDir.getPath()).append(" is not a directory").toString());
-			if (null != informer)
-			{
-				informer.informError(new StringBuilder().append(fromDir.getPath()).append(" 不是文件夹").toString());
-			}
 			return null;
 		}
 		if (!fromDir.canRead())
 		{
 			logger.error(new StringBuilder().append(fromDir.getPath()).append(" can not read").toString());
-			if (null != informer)
-			{
-				informer.informError(new StringBuilder().append(fromDir.getPath()).append(" 不可读").toString());
-			}
+
 			return null;
 		}
 
 		if (!toDir.exists())
 		{
 			logger.error(new StringBuilder().append(toDir.getPath()).append(" not exists").toString());
-			if (null != informer)
-			{
-				informer.informError(new StringBuilder().append(toDir.getPath()).append(" 不存在").toString());
-			}
+	
 			return null;
 		}
 		if (!toDir.isDirectory())
 		{
 			logger.error(new StringBuilder().append(toDir.getPath()).append(" is not a directory").toString());
-			if (null != informer)
-			{
-				informer.informError(new StringBuilder().append(toDir.getPath()).append(" 不是文件夹").toString());
-			}
+		
 			return null;
 		}
 		if (!toDir.canWrite())
 		{
 			logger.error(new StringBuilder().append(toDir.getPath()).append(" can not write").toString());
-			if (null != informer)
-			{
-				informer.informError(new StringBuilder().append(toDir.getPath()).append(" 不可写").toString());
-			}
+	
 			return null;
 		}
 
@@ -292,20 +273,14 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 				.append("  ------FROM: ").append(fromDir.getPath()).append("\n")
 				.append("  ------  TO: ").append(toDir.getPath()).toString());
 
-		if (null != informer)
-		{
-			informer.informReady("正在计算需要加密文件个数");
-		}
+	
 
 		EncryptResult result = new EncryptResult();
 		result.NumberOfAll = recursivelyCount(fromDir);
 
-		if (null != informer)
-		{
-			informer.informStart(result);
-		}
 
-		recursivelyEncrypt(fromDir, toDir, rights, result, force, informer);
+
+		recursivelyEncrypt(fromDir, toDir, rights, result, force);
 
 		logger.info(new StringBuilder().append("[batch encrypt result] ")
 				.append("all[").append(result.NumberOfAll).append("] ")
@@ -314,10 +289,7 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 				.append("old-encrypt[").append(result.NumberOfOldEncrypt).append("] ")
 				.append("re-encrypt[").append(result.NumberOfReEncrypt).append("]").toString());
 
-		if (null != informer)
-		{
-			informer.informEnd(result);
-		}
+
 
 		return result;
 	}
@@ -326,6 +298,7 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 	{
 		int count = 0;
 		File[] files = fromDir.listFiles();
+		System.out.println("files"+files);
 		for (File file : files)
 		{
 			if (file.isDirectory())
@@ -340,7 +313,7 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 		return count;
 	}
 
-	private void recursivelyEncrypt(File fromDir, File toDir, Rights rights, EncryptResult result, boolean force, Informer informer)
+	private void recursivelyEncrypt(File fromDir, File toDir, Rights rights, EncryptResult result, boolean force)
 	{
 		result.FailedFiles=new Vector();
 		File[] fromFiles = fromDir.listFiles();
@@ -354,7 +327,7 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 				{
 					toDirSub.mkdir();
 				}
-				recursivelyEncrypt(fromFile, toDirSub, rights, result, force, informer);
+				recursivelyEncrypt(fromFile, toDirSub, rights, result, force);
 			}
 			else if (fromFile.isFile() && (fromFile.getName().endsWith(sourceSuffix.toLowerCase()) || fromFile.getName().endsWith(sourceSuffix.toUpperCase())))
 			{
@@ -377,10 +350,7 @@ public class CipherImpl implements cn.com.sgcc.crypto.Cipher
 						result.NumberOfReEncrypt++; 
 						break;
 				}
-				if (null != informer)
-				{
-					informer.informProgress(result);
-				}
+
 			}
 		}
 	}

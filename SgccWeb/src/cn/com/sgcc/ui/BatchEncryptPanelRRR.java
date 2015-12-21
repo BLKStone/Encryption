@@ -17,9 +17,9 @@ import cn.com.sgcc.vo.*;
 import cn.com.sgcc.crypto.*;
 import cn.com.sgcc.inform.*;
 
-public class BatchEncryptPanel extends JPanel implements Informer
+public class BatchEncryptPanelRRR extends JPanel implements Informer
 {
-	private static Log logger = LogFactory.getLog(BatchEncryptPanel.class);
+	private static Log logger = LogFactory.getLog(BatchEncryptPanelRRR.class);
 
 	private Cipher cipher;
 
@@ -40,7 +40,7 @@ public class BatchEncryptPanel extends JPanel implements Informer
 		this.cipher = cipher;
 	}
 
-	public BatchEncryptPanel()
+	public BatchEncryptPanelRRR()
 	{
 		super();
 	}
@@ -168,65 +168,56 @@ public class BatchEncryptPanel extends JPanel implements Informer
 		{
 			public void actionPerformed(ActionEvent ae)
 			{
-				new Thread(new Runnable()
-				{
-					public void run()
-					{
-						String fromDirName = fromTextField.getText().trim();
-						String toDirName = toTextField.getText().trim();
-						File fromDir = new File(fromDirName);
-						File toDir = new File(toDirName);
-
-						Rights rights;
-						try
-						{
-						    rights = MainFrame.rights;
-//						    System.out.println(rights.getOnlineDisplayable());
-							//rights = rightsPanel.getRights();
-						}
-						catch (NumberFormatException e)
-						{
-							JOptionPane.showMessageDialog(null, "借阅小时数和次数必须是正整数！", "错误", JOptionPane.ERROR_MESSAGE);
-							return;
-						}
-
-						EncryptResult result=cipher.encryptDir(fromDir, toDir, rights, false);
-						
-						for( int i=0; i<data.size(); i++ )
-						{
-							Object object=((Vector)data.get(i)).get(0);
-							if(result.FailedFiles.contains(object))
-							{
-								((Vector)data.get(i)).setElementAt(false, 1);
-								((Vector)data.get(i)).setElementAt(false, 2);
-								((Vector)data.get(i)).setElementAt(true, 3);
-							}
-							else
-							{
-								((Vector)data.get(i)).setElementAt(false, 1);
-								((Vector)data.get(i)).setElementAt(true, 2);
-								((Vector)data.get(i)).setElementAt(false, 3);
-							}
-							
-						}
-						model.setDataVector(data, columnNames);
-						table.getColumnModel().getColumn(0).setPreferredWidth(200);
-					}
-				}).start();
+//				new Thread(new Runnable()
+//				{
+//					public void run()
+//					{
+//						String fromDirName = fromTextField.getText().trim();
+//						String toDirName = toTextField.getText().trim();
+//						File fromDir = new File(fromDirName);
+//						File toDir = new File(toDirName);
+//
+//						Rights rights;
+//						try
+//						{
+//						    rights = MainFrame.rights;
+////						    System.out.println(rights.getOnlineDisplayable());
+//							//rights = rightsPanel.getRights();
+//						}
+//						catch (NumberFormatException e)
+//						{
+//							JOptionPane.showMessageDialog(null, "借阅小时数和次数必须是正整数！", "错误", JOptionPane.ERROR_MESSAGE);
+//							return;
+//						}
+//
+//						EncryptResult result=cipher.encryptDir(fromDir, toDir, rights, false, informer);
+//						
+//						for( int i=0; i<data.size(); i++ )
+//						{
+//							Object object=((Vector)data.get(i)).get(0);
+//							if(result.FailedFiles.contains(object))
+//							{
+//								((Vector)data.get(i)).setElementAt(false, 1);
+//								((Vector)data.get(i)).setElementAt(false, 2);
+//								((Vector)data.get(i)).setElementAt(true, 3);
+//							}
+//							else
+//							{
+//								((Vector)data.get(i)).setElementAt(false, 1);
+//								((Vector)data.get(i)).setElementAt(true, 2);
+//								((Vector)data.get(i)).setElementAt(false, 3);
+//							}
+//							
+//						}
+//						model.setDataVector(data, columnNames);
+//						table.getColumnModel().getColumn(0).setPreferredWidth(200);
+//					}
+//				}).start();
 			}
 		});
 		
 	}
 
-	public EncryptResult Encryption(String fromDirName,String toDirName){
-		File fromDir = new File(fromDirName);
-		File toDir = new File(toDirName);
-
-		Rights rights = new Rights();
-
-		EncryptResult result=cipher.encryptDir(fromDir, toDir, rights, false);
-		return result;
-	}
 	//the function used to find all files in the directory
 	public int findAllfiles(String path,File file,int count)
 	{

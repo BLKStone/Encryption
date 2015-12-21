@@ -1,3 +1,8 @@
+<%@ page language="java" import="java.util.*"%>
+ <%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+ %>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
@@ -18,86 +23,15 @@
 <script type="text/javascript" src="js/json2.js"></script>
 <script type="text/javascript">
 	var rootpath = "Styles/skins/Aqua/icons/";
-	var data = {
-		Rows : [ {
-			fileName : "hello.jsp",
-			isNotEncrypted : '否',
-			isSuccessed : '是',
-			isFailed : '否'
-		}, {
-			fileName : "我是.jsp",
-			isNotEncrypted : '否',
-			isSuccessed : '是',
-			isFailed : '否'
-		} ]
-	};
 	var fileTable = null;
+	var data = null;
+	
 	$(function() {
-		fileTable = $("#fileTable").ligerGrid({
-			columns : [ {
-				display : '文件',
-				name : 'fileName',
-				width : '40%'
-			}, {
-				display : '待加密',
-				name : 'isNotEncrypted',
-				width : '20%'
-			}, {
-				display : '成功',
-				name : 'isSuccessed',
-				width : '20%'
-			}, {
-				display : '失败',
-				name : 'isFailed',
-				width : '20%'
-			} ],
-			pageSize : 10,
-			checkbox : false,
-			rownumbers : false,
-			where : f_getWhere(),
-			data : $.extend(true, {}, data),
-			//data : data,
-			width : '68%',
-			height : '90%'
-		});
+		refreshTable();
 	});
 
 	$(document).ready(function() {
 		$("#bb").click(function() {
-			var from = $("#from").val();
-			var to = $("#to").val();
-			if (from == '') {
-				alert("请选择源路径!");
-				return;
-			}
-			;
-			if (to == '') {
-				alert("请选择目标路径!");
-				return;
-			}
-			;
-
-			$.ajax({
-				type : 'POST',
-				url : "ribao!ribaoMET.action",
-				data : {
-					"cong" : cong,
-					"dao" : dao
-				},
-				datatype : "json",
-				cache : false,
-				beforeSend : function() {
-					common.loading = true;
-					common.showLoading("数据获取中...");
-				},
-				complete : function() {
-					common.loading = false;
-					common.hideLoading();
-				},
-				success : function(json1) {
-					var json = JSON2.parse(json1);
-				}
-			})
 		});
 	});
 	//search function
@@ -114,12 +48,124 @@
 		};
 		return clause;
 	}
-	function getFiles(){
+	function refreshTable(){
+		
+		$.ajax({
+			type : 'POST',
+			url : "encryption!encryptionListMET.action",
+			data : {},
+			datatype : "json",
+			cache : false,
+			beforeSend : function() {
+				
+			},
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function(json1) {
+				data = JSON2.parse(json1);
+				fileTable = $("#fileTable").ligerGrid({
+					columns : [{
+						display : '序号',
+						name : 'order',
+						width : '10%'
+					}, 
+					{
+						display : '文件名',
+						name : 'fileName',
+						width : '20%'
+					}, 
+					{
+						display : '文件路径',
+						name : 'fileDir',
+						width : '40%'
+					}, 
+					{
+						display : '待加密',
+						name : 'isNotEncrypted',
+						width : '10%'
+					}, {
+						display : '成功',
+						name : 'isSuccessed',
+						width : '10%'
+					}, {
+						display : '失败',
+						name : 'isFailed',
+						width : '10%'
+					} ],
+					pageSize : 10,
+					checkbox : false,
+					rownumbers : false,
+					where : f_getWhere(),
+					data : $.extend(true, {}, data),
+					width : '98%',
+					height : '90%'
+				});
+				var info = "文件总个数：" + data.Count;
+				$("#info").text(info);
+			}
+		});
 		
 	}
 	function encrypt(){
-		
+		$.ajax({
+			type : 'POST',
+			url : "encryption!encryptionMET.action",
+			data : {},
+			datatype : "json",
+			cache : false,
+			beforeSend : function() {
+				
+			},
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function(json1) {
+				data = JSON2.parse(json1);
+				fileTable = $("#fileTable").ligerGrid({
+					columns : [{
+						display : '序号',
+						name : 'order',
+						width : '10%'
+					}, 
+					{
+						display : '文件名',
+						name : 'fileName',
+						width : '20%'
+					}, 
+					{
+						display : '文件路径',
+						name : 'fileDir',
+						width : '40%'
+					}, 
+					{
+						display : '待加密',
+						name : 'isNotEncrypted',
+						width : '10%'
+					}, {
+						display : '成功',
+						name : 'isSuccessed',
+						width : '10%'
+					}, {
+						display : '失败',
+						name : 'isFailed',
+						width : '10%'
+					}],
+					pageSize : 10,
+					checkbox : false,
+					rownumbers : false,
+					where : f_getWhere(),
+					data : $.extend(true, {}, data),
+					width : '98%',
+					height : '90%'
+				});
+				$("#info").text(data.Info);
+			}
+		});
 	}
+	
 </script>
 <style>
 .my-button{
@@ -131,7 +177,16 @@
 </head>
 <body style="padding: 6px; overflow: hidden">
 	<div style="margin:10px 0 0 10px">
-		<div>
+	<form action="<%=path%>/servlet/NormalFileUploadServlet" enctype="multipart/form-data"  method="post">
+          <p style="display:inline-block">上传文件：<input type="file" name="file"/> </p>
+         <input type="submit" value="上传" style="width:50"/><span>（支持pdf）</span>
+    </form>
+  <%--   <form action="<%=path%>/servlet/NormalFileUploadServlet"  enctype="multipart/form-data"   method="post">
+		  <input type="text" value="test123" name="username"/>
+          <p>上传文件：<input type="file" name="file"/> </p>
+         <input type="submit" value="上传" style="width:50"/>
+    </form> --%>
+<!-- 		<div>
 			<label style="width: 65px; display: inline-block">源路径:</label>
 			<input type="text" id="from" placeholder="from" style="width: 400px;" class="l-text">
 			<button onclick="getFiles()" class="my-button" style="margin:0px 0px 0px 15px;">确定</button>
@@ -140,12 +195,15 @@
 			<label style="width: 65px; display: inline-block">目标路径:</label>
 			<input type="text" id="to" placeholder="to" style="width: 400px;" class="l-text">
 			<button on-click="encrypt()" class="my-button" style="margin:0px 0px 0px 15px;">开始加密</button>
-		</div>
+		</div> -->
 	</div>
 	<div id="searchbar" style="margin: 20px 0 5px 10px">
 		<label style="width: 65px; display: inline-block">文件名：</label> 
 		<input id="txtFileName" type="text" class="l-text">
-		<button class="my-button" id="btnSearch" onclick="f_search()" style="dispaly:inline">搜索</button>
+		<button class="my-button"  onclick="f_search()" style="dispaly:inline">搜索</button>
+		<button onclick="encrypt()" class="my-button" style="margin:0px 0px 0px 15px;">开始加密</button>
+		<button onclick="refreshTable()" class="my-button" style="margin:0px 0px 0px 5px;">刷新</button>
+		<label id="info" style="margin-left:40px"></label>
 	</div>
 	<div id="fileTable"></div>
 </body>

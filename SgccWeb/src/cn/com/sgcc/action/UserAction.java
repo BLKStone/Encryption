@@ -76,6 +76,12 @@ public class UserAction extends ActionSupport{
 		databaseLayer.getUserDao().delete(this.id);
 		return null;
 	}
+	public String userLoginMET() throws Exception {
+		System.out.println("********userLoginMET********");
+		System.out.println(this.name);
+		System.out.println(databaseLayer.getUserDao().select(this.name));
+		return null;
+	}
 
 	
 
