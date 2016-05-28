@@ -1,4 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+ <%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+ %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
@@ -17,48 +21,10 @@
 <script type="text/javascript" src="js/json2.js"></script>
 <script type="text/javascript">
 	var rootpath = "Styles/skins/Aqua/icons/";
-	var data = {
-		Rows : [ {
-			fileName : "hello.jsp",
-			isNotEncrypted : '否',
-			isSuccessed : '是',
-			isFailed : '否'
-		}, {
-			fileName : "我是.jsp",
-			isNotEncrypted : '否',
-			isSuccessed : '是',
-			isFailed : '否'
-		} ]
-	};
+	var data;
 	var fileTable = null;
 	$(function() {
-		fileTable = $("#fileTable").ligerGrid({
-			columns : [ {
-				display : '文件',
-				name : 'fileName',
-				width : '40%'
-			}, {
-				display : '待上传',
-				name : 'isNotEncrypted',
-				width : '20%'
-			}, {
-				display : '成功',
-				name : 'isSuccessed',
-				width : '20%'
-			}, {
-				display : '失败',
-				name : 'isFailed',
-				width : '20%'
-			} ],
-			pageSize : 10,
-			checkbox : false,
-			rownumbers : false,
-			where : f_getWhere(),
-			data : $.extend(true, {}, data),
-			//data : data,
-			width : '68%',
-			height : '90%'
-		});
+		refreshTable();
 	});
 
 	$(document).ready(function() {
@@ -113,11 +79,80 @@
 		};
 		return clause;
 	}
-	function getFiles(){
-		
+	function refreshTable(){
+		$.ajax({
+			type : 'POST',
+			url : "transfer!transferListMET.action",
+			data : {},
+			datatype : "json",
+			cache : false,
+			beforeSend : function() {
+			},
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function(json1) {
+				data = JSON2.parse(json1);
+				fileTable = $("#fileTable").ligerGrid({
+					columns : [ 
+					{
+						display : '序号',
+						name : 'order',
+						width : '20%'
+					}, 
+								            {
+						display : '文件',
+						name : 'fileName',
+						width : '40%'
+					}, {
+						display : '文件路径',
+						name : 'fileDir',
+						width : '40%'
+					}],
+					pageSize : 10,
+					checkbox : false,
+					rownumbers : false,
+					where : f_getWhere(),
+					data : $.extend(true, {}, data),
+					width : '98%',
+					height : '90%'
+				});
+				var info = "文件总个数：" + data.Count;
+				$("#info").text(info);
+			}
+		});
 	}
-	function encrypt(){
-		
+	function download(){
+			var row = fileTable.getSelectedRow();
+			if (!row) {
+				$.ligerDialog.warn('请选择要操作的行！')
+				return;
+			}
+<%-- 			alert("<%=path%>/servlet/DownloadServlet"); --%>
+			 document.getElementById("fileName").value = row.fileName; 
+			 document.getElementById("fileDir").value = row.fileDir; 
+			 document.fileForm.action = "<%=path%>/servlet/DownloadServlet"; 
+			 document.fileForm.submit();
+	<%-- 		 $.ajax({
+					type : 'POST',
+					url : "<%=path%>/servlet/DownloadServlet",
+					data : {
+						"fileName" : row.fileName,
+						"fileDir" : row.fileDir
+					},
+					datatype : "json",
+					cache : false,
+					beforeSend : function() {
+					},
+					complete : function() {
+						common.loading = false;
+						common.hideLoading();
+					},
+					success : function(json1) {
+						console.log(json1);
+					}
+				}) --%>
 	}
 </script>
 <style>
@@ -130,18 +165,18 @@
 </head>
 <body style="padding: 6px; overflow: hidden">
 	<div style="margin:10px 0 0 10px">
-		<div>
-			<label style="width: 65px; display: inline-block">文件路径:</label>
-			<input type="text" id="path" placeholder="from" style="width: 400px;" class="l-text">
-			<button onclick="getFiles()" class="my-button" style="margin:0px 0px 0px 10px;">确定</button>
-			<button onclick="upload()" class="my-button" style="margin:0px 0px 0px 15px;">开始上传</button>
-		</div>
 	</div>
 	<div id="searchbar" style="margin: 20px 0 5px 10px">
 		<label style="width: 65px; display: inline-block">文件名：</label> 
 		<input id="txtFileName" type="text" class="l-text">
 		<button class="my-button" id="btnSearch" onclick="f_search()" style="dispaly:inline">搜索</button>
+		<button class="my-button" id="btnDownload" onclick="download()" style="dispaly:inline;margin-left:10px">下载</button>
+		<label id="info" style="margin-left:100px"></label>
 	</div>
 	<div id="fileTable"></div>
+	<form name="fileForm">
+		  <input type="hidden" name="fileName" id="fileName">
+		  <input type="hidden" name="fileDir" id="fileDir">
+	</form>
 </body>
 </html>

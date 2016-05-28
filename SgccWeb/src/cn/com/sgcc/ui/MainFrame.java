@@ -32,7 +32,7 @@ public class MainFrame extends JFrame implements ChangeListener
 	private static Log logger = LogFactory.getLog(MainFrame.class);
 
 	private JTabbedPane tabbedPane;
-	private BatchEncryptPanel encryptPanel;
+	private BatchEncryptPanelRRR encryptPanel;
 	public IpRangeConfigPanel ipConfigPanel;
 	private RightsConfigPanel rightsConfigPanel;
 	private UserManagePanel userManagePanel;
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame implements ChangeListener
 		MainFrame.rights=rights;
 	}
 	
-	public void setEncryptPanel(BatchEncryptPanel encryptPanel)
+	public void setEncryptPanel(BatchEncryptPanelRRR encryptPanel)
 	{
 		this.encryptPanel = encryptPanel;
 	}

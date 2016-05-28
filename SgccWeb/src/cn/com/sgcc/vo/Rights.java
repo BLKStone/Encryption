@@ -2,6 +2,7 @@ package cn.com.sgcc.vo;
 
 public class Rights
 {
+	private int id;
 	private boolean onlineDisplayable;
 	private boolean onlinePrintable;
 	private boolean onlineCopyable;
@@ -11,6 +12,13 @@ public class Rights
 	private int offlineDisplayDuration = -1;
 	private int offlineDisplayCount = -1;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	public boolean getOnlineDisplayable()
 	{
 		return onlineDisplayable;

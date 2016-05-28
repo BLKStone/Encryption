@@ -19,7 +19,7 @@ import cn.com.sgcc.inform.*;
 
 public class FileTransmissionPanel extends JPanel implements Informer
 {
-	private static Log logger = LogFactory.getLog(BatchEncryptPanel.class);
+	private static Log logger = LogFactory.getLog(BatchEncryptPanelRRR.class);
 
 	private Cipher cipher;
 

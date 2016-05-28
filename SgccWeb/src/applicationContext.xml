@@ -51,7 +51,7 @@
 		<property name="databaseLayer" ref="DatabaseLayerBean"/>
 	</bean>
 	
-		<bean id="UpLoadBean" class="cn.com.sgcc.vo.UpLoad">
+<!-- 		<bean id="UpLoadBean" class="cn.com.sgcc.vo.UpLoad">
 		<property name="cryptoAlgorithm" value="AES"/>
 		<property name="cryptoMode" value="CBC"/>
 		<property name="cryptoPadding" value="ISO10126Padding"/>
@@ -61,7 +61,7 @@
 		<property name="destinationSuffix" value=".gwbz"/>
 		<property name="packager" ref="PackagerBean"/>
 		<property name="databaseLayer" ref="DatabaseLayerBean"/>
-	</bean>
+	</bean> -->
 
 	<!-- packager -->
 	<bean id="PackagerBean" class="cn.com.sgcc.packager.ZipPackager">

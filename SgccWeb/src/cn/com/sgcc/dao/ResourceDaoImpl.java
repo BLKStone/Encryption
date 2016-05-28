@@ -33,6 +33,9 @@ public class ResourceDaoImpl implements ResourceDao
 	{
 		this.dataSource = dataSource;
 	}
+	public ResourceDaoImpl(){
+		dataSource = new DataSourceImpl();
+	}
 	
 	
 	public  Resource decodeResourceHash(int id, String nameHash, String allHash) throws IOException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException{

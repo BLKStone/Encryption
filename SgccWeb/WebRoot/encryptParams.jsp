@@ -74,7 +74,7 @@
 			type : 'POST',
 			url : "ipRange!ipRangeDeleteMET.action",
 			data : {
-				"id":row.id
+				"id" : row.id
 			},
 			datatype : "json",
 			cache : false,
@@ -162,7 +162,7 @@
 							type : 'POST',
 							url : "ipRange!ipRangeEditMET.action",
 							data : {
-								"id": row.id,
+								"id" : row.id,
 								"beginIp" : beginIp,
 								"endIp" : endIp
 							},
@@ -209,6 +209,7 @@
 	}
 	$(function() {
 		refreshTable();
+		refreshRights();
 	});
 	// refresh table function
 	function refreshTable() {
@@ -249,7 +250,75 @@
 				});
 			}
 		});
-
+	}
+	function refreshRights(){
+		$.ajax({
+			type : 'POST',
+			url : "rights!rightsListMET.action",
+			data : {},
+			datatype : "json",
+			cache : false,
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function(json1) {
+				data = JSON2.parse(json1);
+				var rights = data.rights;
+				 $("#onlineDisplayCheckBox").attr("checked", rights.onlineDisplayable);
+				 $("#onlinePrintCheckBox").attr("checked", rights.onlinePrintable);
+				 $("#onlineCopyCheckBox").attr("checked", rights.onlineCopyable);
+				 $("#offlineDisplayCheckBox").attr("checked", rights.offlineDisplayable);
+				 if(rights.offlineDisplayable){
+					 $("#offlineDisplayDurationTextField").val(rights.offlineDisplayDuration);
+					 $("#offlineDisplayCountTextField").val(rights.offlineDisplayCount);
+				 }else{
+					 $("#offlineDisplayDurationTextField").attr("disabled", rights.offlineDisplayDuration);
+					 $("#offlineDisplayCountTextField").attr("disabled", rights.offlineDisplayCount);
+				 }
+				console.log(data.rights);
+			}
+		});
+	}
+	function rights(){
+		var onlineDisplayable = $("#onlineDisplayCheckBox").attr('checked');
+		var onlinePrintable = $("#onlinePrintCheckBox").attr('checked');
+		var onlineCopyable = $("#onlineCopyCheckBox").attr('checked');
+		var offlineDisplayable = $("#offlineDisplayCheckBox").attr('checked');
+		var offlineDisplayDuration = $("#offlineDisplayDurationTextField").val();
+		var offlineDisplayCount = $("#offlineDisplayCountTextField").val();
+		$.ajax({
+			type : 'POST',
+			url : "rights!rightsAddMET.action",
+			data : {
+				onlineDisplayable: onlineDisplayable,
+				onlinePrintable: onlinePrintable,
+				onlineCopyable: onlineCopyable,
+				offlineDisplayable: offlineDisplayable,
+				offlineDisplayDuration: offlineDisplayDuration,
+				offlineDisplayCount: offlineDisplayCount
+			},
+			datatype : "json",
+			cache : false,
+			complete : function() {
+				common.loading = false;
+				common.hideLoading();
+			},
+			success : function() {
+				common.tip('修改成功！');
+			}
+		});
+	}
+	function offlineDisplay(){
+		if($("#offlineDisplayCheckBox").attr('checked')){
+			 $("#offlineDisplayDurationTextField").attr("disabled", false);
+			 $("#offlineDisplayCountTextField").attr("disabled", false);
+		}else{
+			 $("#offlineDisplayDurationTextField").val('');
+			 $("#offlineDisplayCountTextField").val('');
+			$("#offlineDisplayDurationTextField").attr("disabled", true);
+			 $("#offlineDisplayCountTextField").attr("disabled", true);
+		}
 	}
 </script>
 <style>
@@ -259,45 +328,55 @@
 	cursor: pointer;
 	border: solid 1px #A3C0E8
 }
-.rightsPanel{
+
+.rightsPanel {
 	width: 66%;
-	padding:10px;
+	padding: 10px;
 	border: solid 1px #A3C0E8
 }
-.checkBoxItem{
-	width:220px;
-	display:inline-block;
+
+.checkBoxItem {
+	width: 220px;
+	display: inline-block;
 }
 </style>
 </head>
 <body style="padding: 6px; overflow: hidden">
 	<div id="rightsPanel" class="rightsPanel">
-		<h3 style="margin-bottom:10px;">权限</h3>
+		<h3 style="margin-bottom: 10px;">权限</h3>
 		<div class="checkBoxItem">
-			<label><input id="onlineDisplayCheckBox" type="checkbox" value="" />在线打开</label>
+			<label><input id="onlineDisplayCheckBox" type="checkbox"
+				value="true" />在线打开</label>
 		</div>
 		<div class="checkBoxItem">
-			<label><input id="onlinePrintCheckBox" type="checkbox" value="" />在线打印</label> 
+			<label><input id="onlinePrintCheckBox" type="checkbox"
+				value="true" />在线打印</label>
 		</div>
 		<div class="checkBoxItem">
-			<label><input id="onlineCopyCheckBox" type="checkbox" value="" />在线复制</label>
+			<label><input id="onlineCopyCheckBox" type="checkbox"
+				value="true" />在线复制</label>
 		</div>
 		<br>
 		<div class="checkBoxItem">
-			<label><input id="offlineDisplayCheckBox" type="checkbox" value="" />借阅打开</label>
+			<label><input id="offlineDisplayCheckBox" type="checkbox"
+				value="true" onchange="offlineDisplay()" />借阅打开</label>
 		</div>
 		<div class="checkBoxItem">
-			<label>借阅打开时间</label>
-			<input id="offlineDisplayDurationTextField" type="text" class="l-text" style="width:80px;">
+			<label>借阅打开时间</label> <input id="offlineDisplayDurationTextField"
+				type="text" class="l-text" style="width: 80px;">
 		</div>
 		<div class="checkBoxItem">
-			<label>借阅打开次数</label>
-			<input id="offlineDisplayCountTextField" type="text" class="l-text" style="width:80px;">
-		</div>		
+			<label>借阅打开次数</label> <input id="offlineDisplayCountTextField"
+				type="text" class="l-text" style="width: 80px;">
+			<button class="my-button" id="btnSearch" onclick="rights()"
+				style="dispaly: inline-block;margin-left:20px">确定</button>
+		</div>
+
+
 	</div>
 	<div id="searchbar" style="margin: 20px 0 5px 10px">
-		<label style="width: 65px; display: inline-block">起始IP：</label> 
-		<input id="txtbeginIp" type="text" class="l-text">
+		<label style="width: 65px; display: inline-block">起始IP：</label> <input
+			id="txtbeginIp" type="text" class="l-text">
 		<button class="my-button" id="btnSearch" onclick="f_search()"
 			style="dispaly: inline">搜索</button>
 	</div>

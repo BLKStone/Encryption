@@ -4,7 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>SgccWeb</display-name>
-	<!-- 设置spring 监听器及需加载的spring配置文件 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -12,14 +11,24 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:applicationContext.xml</param-value>
 	</context-param>
-	<!-- 设置struts拦截器 -->
+	<!-- 配置登陆过滤器 -->
+	<filter>
+		<filter-name>login</filter-name>
+		<filter-class>cn.com.sgcc.filter.UserAccessFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>login</filter-name>
+		<url-pattern>/index.jsp</url-pattern>
+	</filter-mapping> 
+
 	<filter>
 		<filter-name>struts</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>struts</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern> *.action</url-pattern>
 	</filter-mapping>
 	<servlet>
 		<servlet-name>ConfigServlet</servlet-name>
@@ -29,7 +38,6 @@
 		<servlet-name>ConfigServlet</servlet-name>
 		<url-pattern> /servlet/ConfigServlet </url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>LicenseServlet</servlet-name>
 		<servlet-class>cn.com.sgcc.servlet.LicenseServlet</servlet-class>
@@ -42,18 +50,27 @@
 		<servlet-name>jqueryAjaxServer</servlet-name>
 		<url-pattern>/jqueryAjax</url-pattern>
 	</servlet-mapping>
-
 	<servlet-mapping>
 		<servlet-name>LicenseServlet</servlet-name>
 		<url-pattern>/GetLicense</url-pattern>
 	</servlet-mapping>
-
+	<servlet>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<servlet-class>cn.com.sgcc.action.NormalFileUploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileUploadServlet</servlet-name>
+		<url-pattern>/servlet/NormalFileUploadServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>FileDownloadServlet</servlet-name>
+		<servlet-class>cn.com.sgcc.action.DownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileDownloadServlet</servlet-name>
+		<url-pattern>/servlet/DownloadServlet</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
