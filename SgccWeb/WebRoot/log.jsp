@@ -31,7 +31,7 @@
 <%@ page
 	import="org.apache.commons.logging.Log,org.apache.commons.logging.LogFactory"%>
 <%
-	String logStr = "";
+/* 	String logStr = "";
 	Log logger = LogFactory.getLog("日志管理");
 	try {
 		String path = this.getServletContext().getRealPath("/") + "logs" + File.separator + "log";
@@ -54,7 +54,7 @@
 		logger.error("日志文件未找到");
 		e.printStackTrace();
 		logStr = "日志文件未找到";
-	}		
+	}	 */	
 %>
 </head>
 <body style="padding: 6px; overflow: hidden">
@@ -67,7 +67,7 @@
 			</div>
 		</div>
 		<div class="l-panel-content">
-			<textarea style="width: 100%; height: 90%; border: 1px; outline: none;"><%=logStr %>
+			<textarea style="width: 100%; height: 90%; border: 1px; outline: none;"><%-- <%=logStr %> --%>
 			</textarea>
 		</div>
 	</div>
