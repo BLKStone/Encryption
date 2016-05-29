@@ -14,10 +14,10 @@
 	<!-- ds-->
 	<bean id="DataSourceBean" class="cn.com.sgcc.ds.DataSourceImpl">
 		<property name="driver" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost/ac"/>
-		<property name="user" value="root"/>
+		<property name="url" value="jdbc:mysql://123.206.71.158:3306/ac"/>
+		<property name="user" value="ac"/>
 		<!--<property name="password" value="zmxncbv"/>  -->
-		<property name="password" value="123123"/>
+		<property name="password" value="123456"/>
 	</bean>
 
 	<!-- dao -->
